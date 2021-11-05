@@ -25,8 +25,8 @@ public class Corporation {
 
     //Getters and Setters
     public String getName() {return name;}
-    public Boolean getInUse() {return inUse;}
-    public Boolean getIsSafe() {return isSafe;}
+    public boolean getInUse() {return inUse;}
+    public boolean getIsSafe() {return isSafe;}
     public int getSize() {return size;}
 
     /**
@@ -40,19 +40,54 @@ public class Corporation {
      * and set to false when the corporation is removed from the board (like when losing a merger)
      * @param inUse
      */
-    public void setInUse(Boolean inUse) {this.inUse = inUse;}
+    public void setInUse(boolean inUse) {this.inUse = inUse;}
 
     /**
-     * setIsSafe() should get regular use. This is changed to true when the corporation's size becomes <= 11
+     * setIsSafe() should get regular use. This is changed to true when the corporation's size becomes >= 11
      * once safe, it should never be changed back to false.
      * @param isSafe
      */
-    public void setIsSafe(Boolean isSafe) {this.isSafe = isSafe;}
+    public void setIsSafe(boolean isSafe) {this.isSafe = isSafe;}
 
     /**
-     * Sets the size of the corporation. A different method should likely be used to increment size and check if isSafe
-     * should become True.
+     * Sets the size of the corporation. gainTiles() should likely be used to increment size upwards since
+     * it allows isSafe to become True. setSize() can be used to reset a corporation's size to zero when absorbed
+     * in a merger.
      * @param size
      */
     public void setSize(int size) {this.size = size;}
+
+    /**
+     * The preferred method for increasing the size of a corporation
+     * @param numTilesGained is the number of tiles absorbed into the corporation
+     */
+    public void gainTiles(int numTilesGained) {
+        size += numTilesGained;
+
+        if(size >= 11) {
+            setIsSafe(true);
+        }
+    }
+
+    /* FROM THIS POINT DOWN ARE METHODS WHICH ARE INCLUDED IN THIS CLASS TEMPORARILY
+       the functionality of found() and absorbed() should probably become methods
+       called foundCorporation and removeCorporation in the Board(?) class, where their
+       function will align more with the single purpose principle.
+     */
+
+    /**
+     * Sets corporation's values to default values for a corporation which has just been played to the board.
+     */
+    public void found() {
+        size = 2;
+        inUse = true;
+    }
+
+    /**
+     * Sets corporation's values to default values for a corporation which has just been taken off the board.
+     */
+    public void absorbed() {
+        size = 0;
+        inUse = false;
+    }
 }
