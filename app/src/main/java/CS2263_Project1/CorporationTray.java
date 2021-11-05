@@ -15,13 +15,13 @@ public class CorporationTray {
     /**
      * initCorporationTray() is used at the start of the game to make all 7 hotel chains and place them into an ArrayList
      */
-    private void initCorporationTray(){
-        tray.add(new Corporation("Worldwide", false));
-        tray.add(new Corporation("Sackson", false));
-        tray.add(new Corporation("Festival", false));
-        tray.add(new Corporation("Imperial", false));
-        tray.add(new Corporation("American", false));
-        tray.add(new Corporation("Continental", false));
-        tray.add(new Corporation("Tower", false));
+    private void initCorporationTray() {
+        tray.add(new Corporation(1, "Worldwide", false, false, 0));
+        tray.add(new Corporation(2, "Sackson", false, false, 0));
+        tray.add(new Corporation(3, "Festival", false, false, 0));
+        tray.add(new Corporation(4, "Imperial", false, false, 0));
+        tray.add(new Corporation(5, "American", false, false, 0));
+        tray.add(new Corporation(6, "Continental", false, false, 0));
+        tray.add(new Corporation(7, "Tower", false, false, 0));
     }
 }
