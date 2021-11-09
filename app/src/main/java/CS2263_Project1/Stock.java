@@ -1,5 +1,9 @@
 package CS2263_Project1;
 
+/**
+ * @author David Hellwig
+ */
+
 public class Stock {
     private int value;
 
