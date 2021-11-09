@@ -86,8 +86,65 @@ public class Corporation {
     /**
      * Sets corporation's values to default values for a corporation which has just been taken off the board.
      */
+
     public void absorbed() {
         size = 0;
         inUse = false;
     }
+
+    /**
+     * Gets the proper selling/buying price of each stock in a corporation according to the ID and
+     * the size of the corporation
+     * @return price is this formatted price
+     */
+
+    public int getPrice(){
+        int price = 0;
+        int numStocks = this.size;
+        int corpID = this.id;
+
+        if (1 < numStocks && numStocks < 6) {
+            price = numStocks * 100;
+        } else if (5 < numStocks && numStocks < 11) {
+            price = 600;
+        } else if (10 < numStocks && numStocks < 21) {
+            price = 700;
+        } else if (20 < numStocks && numStocks < 31) {
+            price = 800;
+        } else if (30 < numStocks && numStocks < 41) {
+            price = 900;
+        } else if (40 < numStocks) {
+            price = 1000;
+        }
+
+        //Corporation ID's > 2 get a $100 increase to their prices, ID's > 5 get a $200 increase
+        //C
+        if (2 < corpID && corpID < 6) {
+            price += 100;
+        } else if (corpID > 5) {
+            price += 200;
+        }
+
+        return price;
+
+    }
+
+    /**
+     * Gets the calculated minority bonus according to the price of stocks
+     * @return returns the calculated minority bonus
+     */
+
+    public int getMinorityBonus() {
+        return this.getPrice() * 5;
+    }
+
+    /**
+     * Gets the calculated majority bonus according to the price of stocks
+     * @return returns the calculated majority bonus
+     */
+
+    public int getMajorityBonus() {
+        return this.getPrice() * 10;
+    }
+
 }
