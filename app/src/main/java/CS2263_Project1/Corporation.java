@@ -93,7 +93,7 @@ public class Corporation {
     }
 
     /**
-     * Gets the proper selling/buying price of each stock in a corporation according to the ID and
+     * Gets the proper selling/buying price of each stock in a corporation according to its ID and
      * the size of the corporation
      * @return price is this formatted price
      */
