@@ -4,12 +4,10 @@ package CS2263_Project1;
  * @author Noah Owens
  */
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class Board {
     public boolean gameCanEnd;
     private String[] boardArray = new String[108];
+    private Tile[] tileArray = new Tile[108];
 
     public Board() {
         initBoard();
@@ -38,9 +36,15 @@ public class Board {
 
         //set gameCanEnd to false
         gameCanEnd = false;
-
     }
 
+    /**
+     * placeTile should update tileArray by finding the index of the tile's id in the boardArray
+     * @param t is the tile being placed onto the board from the player's hand
+     */
+    public void placeTile(Tile t) {
+        t.isSpent = true;
+    }
 }
 
 
