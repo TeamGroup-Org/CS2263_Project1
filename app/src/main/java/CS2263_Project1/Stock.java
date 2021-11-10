@@ -17,4 +17,8 @@ public class Stock {
     public int getValue() {
         return value;
     }
+
+    public void setPrice(int i){
+        value = i;
+    }
 }
