@@ -1,5 +1,9 @@
 package CS2263_Project1;
 
+/**
+ * @author Noah Owens and Coby Garner
+ */
+
 public class Corporation {
     private int id;
     private String name;
