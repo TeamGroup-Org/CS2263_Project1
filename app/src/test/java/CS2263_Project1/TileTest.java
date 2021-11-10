@@ -5,15 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TileTest {
     @Test
-    public void testSetSafe(){
-        Tile tile = new Tile();
-        tile.setSafeStatus();
-        assertTrue(tile.isSafe);
-    }
-
-    @Test
     public void testSetSpent(){
-        Tile tile = new Tile();
+        Tile tile = new Tile("A1", false);
         tile.setSpentStatus();
         assertTrue(tile.isSpent);
     }

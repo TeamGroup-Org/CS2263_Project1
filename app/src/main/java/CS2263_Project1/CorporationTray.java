@@ -1,5 +1,9 @@
 package CS2263_Project1;
 
+/**
+ * @author Noah Owens
+ */
+
 import java.util.ArrayList;
 
 public class CorporationTray {
