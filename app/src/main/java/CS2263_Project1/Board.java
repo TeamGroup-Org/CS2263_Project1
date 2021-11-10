@@ -9,15 +9,20 @@ import java.util.ArrayList;
 
 public class Board {
     public boolean gameCanEnd;
-    private Tile[] boardArray = new Tile[108];
+    private String[] boardArray = new String[108];
 
     public Board() {
-        initBoardArray();
+        initBoard();
     }
 
-    private void initBoardArray() {
+    /**
+     * initBoard() fills boardArray with 108 spaces (From a1 to i12) and sets the value of gameCanEnd to false,
+     * preparing the game board for play.
+     */
+    private void initBoard() {
         int tileCoordNum;
         String tileCoordLetter;
+        int counter = 0;
 
         //Create every letter number combination from 1-12 and A-I to fill boardArray;
         for (char y = 'A'; y <= 'I'; y++) {
@@ -26,10 +31,16 @@ public class Board {
             for (int x = 1; x <= 12; x++) {
                 tileCoordNum = x;
 
-                System.out.println(tileCoordNum + tileCoordLetter);
+                boardArray[counter] = tileCoordLetter + String.valueOf(tileCoordLetter);
+                counter++;
             }
         }
+
+        //set gameCanEnd to false
+        gameCanEnd = false;
+
     }
+
 }
 
 
