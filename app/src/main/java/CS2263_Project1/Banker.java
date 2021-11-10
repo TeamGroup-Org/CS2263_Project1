@@ -5,9 +5,9 @@ public class Banker {
 
     /*private Player winner;
 
-    public void getNewPrice(InfoCard infoCard){
+    public void getNewPrice(Corporation c){
 
-        newPrice = infoCard.getPrice();
+        newPrice = c.getPrice();
 
 
     }
@@ -23,16 +23,20 @@ public class Banker {
     }
 
 
-    public void calculateReturn(InfoCard infoCard, Player player){
-        int i = InfoCard.getMajorityBonus() + InfoCard.getMinorityBonus();
+    public void calculateReturn(Corporation c, Player player){
+        int i = c.getMajorityBonus() + c.getMinorityBonus();
         player.takeMoney(i);
 
     }
 
     public Player getWinner(Player player1, Player player2){
         if player1.getPlayerInfo() > player2.getPlayerInfo(){
-            return winner;
+            setWinner(player1);
         }
+        else if player2.getPlayerInfo() > player1.getPlayerInfo(){
+            setWinner(player2);
+        }
+        return winner;
 
     }
 
