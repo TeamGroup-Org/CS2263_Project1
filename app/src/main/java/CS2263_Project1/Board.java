@@ -45,6 +45,14 @@ public class Board {
     public void placeTile(Tile t) {
         t.isSpent = true;
     }
+
+    /**
+     * Determines if the game is in a valid end state by iterating through the list of corporations to see if
+     * every inUse corporation is also safe.
+     */
+    //public boolean checkEndGame() {
+    //
+    //}
 }
 
 
