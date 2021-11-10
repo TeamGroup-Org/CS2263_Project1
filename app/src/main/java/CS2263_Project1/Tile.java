@@ -5,16 +5,24 @@ package CS2263_Project1;
  */
 
 public class Tile {
-    boolean isSafe = false;
-
-    boolean isSpent = false;
+    String id;
+    boolean isSpent;
 
     /**
-     * Sets safe status to true, indicating is safe
+     * Parameterized tile constructor
+     * @param id the letter-number id which determines tile position (from A1-I12)
+     * @param isSpent true if tile is used, false otherwise
      */
-    public void setSafeStatus(){
-        isSafe = true;
+    public Tile(String id, boolean isSpent){
+        this.id = id;
+
+        this.isSpent = isSpent;
     }
+
+    /**
+     * Default tile constructor
+     */
+    public Tile(){}
 
     /**
      * Sets status to true, indicating that it is placed
