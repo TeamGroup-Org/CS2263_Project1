@@ -10,4 +10,11 @@ public class TileTest {
         tile.setSpentStatus();
         assertTrue(tile.isSpent);
     }
+
+    @Test
+    public void testConstructor(){
+        Tile tile = new Tile("A1", true);
+        assertTrue(tile.isSpent);
+
+    }
 }

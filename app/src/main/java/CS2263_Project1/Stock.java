@@ -5,6 +5,10 @@ package CS2263_Project1;
  */
 
 public class Stock {
+    public Stock(int value, String companyName){
+        this.value = value;
+        this.company = companyName;
+    }
     private int value;
 
     private String company;
