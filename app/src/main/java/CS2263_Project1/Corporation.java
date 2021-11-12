@@ -1,5 +1,9 @@
 package CS2263_Project1;
 
+/**
+ * @author Noah Owens and Coby Garner
+ */
+
 public class Corporation {
     private int id;
     private String name;
@@ -15,7 +19,7 @@ public class Corporation {
      * @param isSafe True when size > 11, determines if the corporation can be absorbed in a merger
      * @param size The number of tiles associated with the corporation, used to determine shareholder bonuses and safetyStatus
      */
-    public Corporation(int id, String name, Boolean inUse, Boolean isSafe, int size){
+    public Corporation(int id, String name, boolean inUse, boolean isSafe, int size){
         this.id = id;
         this.name = name;
         this.inUse = inUse;
