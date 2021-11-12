@@ -13,13 +13,12 @@ public class Board {
     private ArrayList<Corporation> corporationTray = new ArrayList<>();
 
     public Board() {
-
         initBoard();
     }
 
     /**
-     * initBoard() fills boardArray with 108 spaces (From a1 to i12) and sets the value of gameCanEnd to false,
-     * preparing the game board for play.
+     * initBoard() fills boardArray with 108 spaces (From a1 to i12), fills corporation tray with the 7 hotel chains
+     * and sets the value of gameCanEnd to false, preparing the game board for play.
      */
     private void initBoard() {
         int tileCoordNum;
@@ -60,6 +59,7 @@ public class Board {
 
     /**
      * placeTile should update tileArray by finding the index of the tile's id in the boardArray
+     *
      * @param t is the tile being placed onto the board from the player's hand
      */
     public void placeTile(Tile t) {
@@ -68,11 +68,37 @@ public class Board {
 
     /**
      * Determines if the game is in a valid end state by iterating through the list of corporations to see if
-     * every inUse corporation is also safe.
+     * every inUse corporation is also safe, or if there
      */
-    //public boolean checkEndGame() {
-    //
-    //}
+    public boolean checkEndGame() {
+        //game end conditions
+        final int sizeCutoff = 41;
+        final int safeCutoff = 4;
+        //if safeCount exceeds 4, the game can end.
+        int safeCount = 0;
+
+        for(int i = 0; i < 7; i++) {
+            Corporation corporation = corporationTray.get(i);
+            if (corporation.getSize() >= sizeCutoff) {
+                return true;
+            } else if (corporation.getIsSafe() == true) {
+                safeCount++;
+            }
+        }
+        if (safeCount >= safeCutoff) { return true; }
+        return false;
+    }
+
+    /**
+     * Used to get a corporation object from the tray so it can be updated
+     *
+     * @param id the corporation's integer id within the tray;
+     * @return the corporation object being fetched
+     */
+    public Corporation accessCorporation(int id) {
+        //returns id minus 1 so that you can search by corporation.id but get the correct index within the corporation tray.
+        return corporationTray.get(id - 1);
+    }
 }
 
 
