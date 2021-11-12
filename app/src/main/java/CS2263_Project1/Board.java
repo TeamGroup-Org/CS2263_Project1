@@ -1,15 +1,16 @@
 package CS2263_Project1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author Noah Owens
  */
 
 public class Board {
-    public boolean gameCanEnd;
-    private String[] boardArray = new String[108];
-    private Tile[] tileArray = new Tile[108];
+    private boolean gameCanEnd;
+    private ArrayList<String> boardArray = new ArrayList<>();
+    private ArrayList<Tile> tileArray = new ArrayList<>();
     private ArrayList<Corporation> corporationTray = new ArrayList<>();
 
     public Board() {
@@ -23,7 +24,6 @@ public class Board {
     private void initBoard() {
         int tileCoordNum;
         String tileCoordLetter;
-        int counter = 0;
 
         //Create every letter number combination from 1-12 and A-I to fill boardArray;
         for (char y = 'A'; y <= 'I'; y++) {
@@ -32,8 +32,7 @@ public class Board {
             for (int x = 1; x <= 12; x++) {
                 tileCoordNum = x;
 
-                boardArray[counter] = tileCoordLetter + String.valueOf(tileCoordLetter);
-                counter++;
+                boardArray.add(tileCoordLetter + String.valueOf(tileCoordNum));
             }
         }
 
@@ -63,6 +62,8 @@ public class Board {
      * @param t is the tile being placed onto the board from the player's hand
      */
     public void placeTile(Tile t) {
+        String searchId = t.id;
+
         t.isSpent = true;
     }
 
@@ -87,6 +88,16 @@ public class Board {
         }
         if (safeCount >= safeCutoff) { return true; }
         return false;
+    }
+
+    /**
+     * the getter for the game's end status, evaluates game end conditions and returns game end status
+     *
+     * @return true if legal conditions for game end are met, otherwise false
+     */
+    public boolean getGameCanEnd() {
+        checkEndGame();
+        return gameCanEnd;
     }
 
     /**
