@@ -2,23 +2,42 @@ package CS2263_Project1;
 
 import java.util.ArrayList;
 
-
+/**
+ * @author Ekow Barlow
+ */
 public class TileTray {
-    private ArrayList<Tile> tray;
+    private ArrayList<Tile> tray = new ArrayList<>();
 
     public TileTray(ArrayList<CS2263_Project1.Tile> tray) {
         this.tray = tray;
     }
 
-    public Tile getTray() {
-        if (tray.size() != 0){
-            return tray.remove(0);
+    /**
+     * get tray returns all the tiles within the tray
+     *
+     * @return an ArrayList of type Tile
+     */
+    public ArrayList<Tile> getTray() {
+        if (tray.isEmpty()){
+            return null;
         }
-        return null;
 
+        return tray;
     }
 
+    /**
+     * Set the tile tray
+     *
+     * @param tray is the new ArrayList of Tiles being used
+     */
     public void setTray(ArrayList<CS2263_Project1.Tile> tray) {
         this.tray = tray;
+    }
+
+    public boolean isEmpty() {
+        if (tray.size() != 0) {
+            return true;
+        }
+        return false;
     }
 }
