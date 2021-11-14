@@ -3,12 +3,12 @@ package CS2263_Project1;
 import java.util.ArrayList;
 
 public class Player {
-    private int playerIdentity;
+    private  final int playerIdentity;
     private int wallet;
-    private ArrayList playerHand;
-    private ArrayList portfolio;
+    private ArrayList<Tile> playerHand;
+    private ArrayList<Stock> portfolio;
 
-    public Player(int playerIdentity, int wallet, ArrayList playerHand, ArrayList portfolio) {
+    public Player(int playerIdentity, int wallet, ArrayList<Tile> playerHand, ArrayList<Stock> portfolio) {
         this.playerIdentity = playerIdentity;
         this.wallet = wallet;
         this.playerHand = playerHand;
@@ -19,40 +19,44 @@ public class Player {
         this.wallet = wallet;
     }
 
-    public void spendMoney(int wallet)
+    public void spendMoney(int money)
     {
-        this.wallet = wallet;
+        this.wallet = this.wallet - money;
     }
-    public void playTile(ArrayList playerHand)
+    public void playTile(Board b, Tile t)
     {
-        this.playerHand = playerHand;
+        b.placeTile(t);
     }
-    public void tradeStock(ArrayList playerHand)
+    public void tradeStock(Stock stock, Corporation corporation)
     {
-        this.playerHand = playerHand;
+        stock.setPrice(corporation.getPrice());
     }
-    public void sellStock(ArrayList playerHand)
+    public void sellStock(int i)
     {
-        this.playerHand = playerHand;
+        Stock stock = portfolio.remove(i);
     }
-    public void updatePlayerAttribute(ArrayList portfolio)
+    public void updatePlayerAttribute()
     {
-        this.portfolio = portfolio;
+        //???
     }
-    public void foundCorporation(ArrayList portfolio)
+    public void foundCorporation(Corporation corporation)
     {
-        this.portfolio = portfolio;
+        corporation.found();
     }
-    public void askForTile(ArrayList playerHand)
+    public void askForTile(TileTray tileTray)
     {
-        this.playerHand = playerHand;
+        tileTray.getTray();
     }
-    public ArrayList getTileFromHand()
+    public Tile getTileFromHand()
     {
-        return playerHand;
+        return playerHand.remove(0);
     }
     public ArrayList getPrice()
     {
         return portfolio;
+    }
+
+    public int getPlayerInfo() {
+        return wallet;
     }
 }
