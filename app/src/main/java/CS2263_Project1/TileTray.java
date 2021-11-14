@@ -10,8 +10,12 @@ public class TileTray {
         this.tray = tray;
     }
 
-    public ArrayList<CS2263_Project1.Tile> getTray() {
-        return tray;
+    public Tile getTray() {
+        if (tray.size() != 0){
+            return tray.remove(0);
+        }
+        return null;
+
     }
 
     public void setTray(ArrayList<CS2263_Project1.Tile> tray) {
