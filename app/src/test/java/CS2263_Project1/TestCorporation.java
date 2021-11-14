@@ -1,9 +1,17 @@
 package CS2263_Project1;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+
 public class TestCorporation {
+    private Corporation c;
+
+
     @Test
     public void testGetName(){
         Corporation c = new Corporation(1,"test",true,false,1);
@@ -72,6 +80,20 @@ public class TestCorporation {
         assertEquals(700,c.getPrice());
         c.setSize(6);
         assertEquals(600,c.getPrice());
+        c.setSize(21);
+        assertEquals(800,c.getPrice());
+        c.setSize(31);
+        assertEquals(900,c.getPrice());
+        c.setSize(41);
+        assertEquals(1000,c.getPrice());
+
+    }
+
+    @Test
+    public void testGetBonuses(){
+        Corporation c = new Corporation(1,"test",true,false,2);
+        assertEquals(1000, c.getMinorityBonus());
+        assertEquals(2000,c.getMajorityBonus());
 
     }
 }
