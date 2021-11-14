@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 public class App extends Application{
     public App(){}
 
-
     public Pane makeGameBoard() {
         char[] charArray = new char[] {'A','B','C','D','E','F','G','H','I'};
         GridPane pane = new GridPane();
@@ -79,7 +78,7 @@ public class App extends Application{
                 primaryStage.close();
                 Stage acquireStage = new Stage();
                 acquireStage.setTitle("Acquire");
-                Scene scene2 = new Scene(makeGameBoard(), 200, 200);
+                Scene scene2 = new Scene(makeGameBoard(), 450, 300);
                 acquireStage.setScene(scene2);
                 acquireStage.show();
             }
