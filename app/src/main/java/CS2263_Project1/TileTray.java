@@ -6,6 +6,8 @@ import java.util.ArrayList;
  * @author David Hellwig
  * @author Noah Ownes
  * @author Ekow Barlow
+ *
+ * @version 1.0.0
  */
 public class TileTray {
     private ArrayList<Tile> tray = new ArrayList<>();
