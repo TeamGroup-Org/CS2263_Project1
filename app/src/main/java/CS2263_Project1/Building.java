@@ -1,5 +1,9 @@
 package CS2263_Project1;
 
+/**
+ * @author Ekow Barlow
+ */
+
 public class Building {
     private int isType;
     boolean isSpent;

@@ -1,5 +1,9 @@
 package CS2263_Project1;
 
+/**
+ * @author David Hellwig
+ */
+
 public class Banker {
     private int newPrice;
 
@@ -26,7 +30,7 @@ public class Banker {
 
 
     public void calculateReturn(Corporation c, Player player){
-        int i = c.getMajorityBonus() + c.getMinorityBonus();
+        int i = player.getPlayerInfo() + c.getMajorityBonus() + c.getMinorityBonus();
         player.takeMoney(i);
 
     }

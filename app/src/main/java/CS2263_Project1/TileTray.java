@@ -3,6 +3,8 @@ package CS2263_Project1;
 import java.util.ArrayList;
 
 /**
+ * @author David Hellwig
+ * @author Noah Ownes
  * @author Ekow Barlow
  */
 public class TileTray {

@@ -7,35 +7,54 @@ import org.junit.jupiter.api.TestInstance;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author David Hellwig
+ */
 
 public class TestCorporation {
     private Corporation c;
 
 
+
+    /**
+     * Test for getName method
+     */
     @Test
     public void testGetName(){
-        Corporation c = new Corporation(1,"test",true,false,1);
+        Corporation c = new Corporation(1,"test",true,false,2);
         assertEquals("test",c.getName());
     }
 
+    /**
+     * Test for getInUse method
+     */
     @Test
     public void testGetInUse(){
         Corporation c = new Corporation(1,"test",true,false,1);
         assertTrue(c.getInUse());
     }
 
+    /**
+     * Test for getIsSafe method
+     */
     @Test
     public void testGetIsSafe(){
         Corporation c = new Corporation(1,"test",true,false,1);
         assertFalse(c.getIsSafe());
     }
 
+    /**
+     * Test for getSize method
+     */
     @Test
     public void testGetSize(){
         Corporation c = new Corporation(1,"test",true,false,1);
         assertEquals(1,c.getSize());
     }
 
+    /**
+     * Test for set name method
+     */
     @Test
     public void testSetName(){
         Corporation c = new Corporation(1,"test",true,false,1);
@@ -43,6 +62,9 @@ public class TestCorporation {
         assertEquals("headache", c.getName());
     }
 
+    /**
+     * Test for setInUse method
+     */
     @Test
     public void testSetInUse(){
         Corporation c = new Corporation(1,"test",true,false,1);
@@ -50,6 +72,9 @@ public class TestCorporation {
         assertFalse(c.getInUse());
     }
 
+    /**
+     * Test for setIsSafe method
+     */
     @Test
     public void testSetIsSafe(){
         Corporation c = new Corporation(1,"test",true,false,1);
@@ -57,6 +82,9 @@ public class TestCorporation {
         assertTrue(c.getIsSafe());
     }
 
+    /**
+     * Test for setSize method
+     */
     @Test
     public void testSetSize(){
         Corporation c = new Corporation(1,"test",true,false,1);
@@ -64,6 +92,9 @@ public class TestCorporation {
         assertEquals(15,c.getSize());
     }
 
+    /**
+     * Test for gainTiles method
+     */
     @Test
     public void testGainTiles(){
         Corporation c = new Corporation(1,"test",true,false,1);
@@ -72,6 +103,9 @@ public class TestCorporation {
         assertTrue(c.getIsSafe());
     }
 
+    /**
+     * Test for getPrice method (REFACTOR THIS)
+     */
     @Test
     public void testGetPrice(){
         Corporation c = new Corporation(1,"test",true,false,2);
@@ -89,11 +123,36 @@ public class TestCorporation {
 
     }
 
+    /**
+     * Test for getBonuses method
+     */
     @Test
     public void testGetBonuses(){
         Corporation c = new Corporation(1,"test",true,false,2);
         assertEquals(1000, c.getMinorityBonus());
         assertEquals(2000,c.getMajorityBonus());
+
+    }
+    /**
+     * Test for found method
+     */
+    public void testFound(){
+        c.setSize(1);
+        c.found();
+        assertTrue(c.getInUse());
+        assertEquals(2, c.getSize());
+
+    }
+    /**
+     * Test for absorbed method
+     */
+    @Test
+    public void testAbsorbed(){
+        Corporation c = new Corporation(1,"test",true,false,2);
+        c.absorbed();
+        assertFalse(c.getInUse());
+        assertEquals(0,c.getSize());
+
 
     }
 }
