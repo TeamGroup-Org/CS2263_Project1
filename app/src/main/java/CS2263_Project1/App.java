@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 /**
  * @author David Hellwig
  * @uathor Coby Garner
+ *
+ * @version 1.0.0
  */
 
 public class App extends Application{

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 /**
  * @author David Hellwig
  * @uathor Ekow Barlow
+ *
+ * @version 1.0.0
  */
 
 public class Player {

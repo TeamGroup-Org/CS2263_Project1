@@ -2,6 +2,8 @@ package CS2263_Project1;
 
 /**
  * @author Ekow Barlow
+ *
+ * @version 1.0.0
  */
 
 public class Building {
