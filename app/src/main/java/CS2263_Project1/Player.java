@@ -73,6 +73,10 @@ public class Player {
         return portfolio;
     }
 
+    public ArrayList<Tile> getHand(){
+        return playerHand;
+    }
+
     public int getPlayerInfo() {
         return wallet;
     }

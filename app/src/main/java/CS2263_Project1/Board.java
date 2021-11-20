@@ -1,7 +1,10 @@
 package CS2263_Project1;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * @author Noah Owens
@@ -11,8 +14,8 @@ import java.util.Arrays;
 
 public class Board {
     private boolean gameCanEnd;
-    private ArrayList<String> boardArray = new ArrayList<>();
-    private ArrayList<Tile> tileArray = new ArrayList<>();
+    public ArrayList<String> boardArray = new ArrayList<>();
+    public ArrayList<Tile> tileArray = new ArrayList<>();
     private ArrayList<Corporation> corporationTray = new ArrayList<>();
 
     public Board() {
@@ -35,6 +38,10 @@ public class Board {
                 tileCoordNum = x;
 
                 boardArray.add(tileCoordLetter + String.valueOf(tileCoordNum));
+            }
+            for (String tileId : boardArray) {
+                Tile tile = new Tile(tileId,false);
+                tileArray.add(tile);
             }
         }
 
@@ -111,6 +118,24 @@ public class Board {
     public Corporation accessCorporation(int id) {
         //returns id minus 1 so that you can search by corporation.id but get the correct index within the corporation tray.
         return corporationTray.get(id - 1);
+    }
+
+    /**
+     * Generates a randomized hand of 6 tiles for a player from the current tileArray,
+     * tiles aren't removed from tileArray until placed onto board
+     * @return returns an arraylist of 6 random tiles
+     */
+    public ArrayList<Tile> generatePlayerHand() {
+        ArrayList<Tile> hand = new ArrayList<>();
+
+        for(int i = 0; i<6; i++){
+            Random rand = new Random();
+            int handRand = rand.nextInt(tileArray.size());
+            Tile handTile = tileArray.get(handRand);
+            hand.add(handTile);
+            tileArray.remove(handTile);
+        }
+        return hand;
     }
 }
 
