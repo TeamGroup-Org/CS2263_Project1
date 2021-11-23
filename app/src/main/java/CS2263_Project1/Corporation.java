@@ -1,6 +1,8 @@
 package CS2263_Project1;
 
 /**
+ * Corporation Class creates an object which represents the hotel chains. Stores and updates relevant data.
+ *
  * @author Noah Owens
  * @author Coby Garner
  *

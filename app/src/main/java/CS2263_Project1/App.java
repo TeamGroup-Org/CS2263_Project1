@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
+ * App class launches the Application UI
+ *
  * @author David Hellwig
  * @uathor Coby Garner
  *

@@ -9,8 +9,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import org.checkerframework.checker.units.qual.C;
-
 import java.awt.*;
+
+/**
+ * Game Board Controller Class contains all methods used as part of the game UI stage
+ *
+ * @author Coby Garner
+ */
 
 public class gameBoardController {
 
@@ -59,8 +64,8 @@ public Button tile4; public Button tile5; public Button tile6;
 
     public void setPlayerTurn(){
         if (playerTurn == 1){
-        turnTracker.setText("Player 1's turn");
-    }
+            turnTracker.setText("Player 1's turn");
+        }
         else if(playerTurn == 2){
             turnTracker.setText("Player 2's turn");
         }

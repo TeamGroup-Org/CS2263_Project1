@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
+ * Board class creates an arraylist representing the acquire board and provides methods for manipulating it.
+ *
  * @author Noah Owens
  *
  * @version 1.0.0
