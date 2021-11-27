@@ -123,7 +123,6 @@ public class gameBoardController {
         updatePlayerTiles();
         updateBoard();
         updateMoney();
-        setPlayerTurn();
     }
 }
 
