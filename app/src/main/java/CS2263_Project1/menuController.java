@@ -28,13 +28,12 @@ public class menuController {
     }
 
     /**
-     * Closes the menu stage and starts a new game
+     *  Closes the menu stage and starts a new game
      */
 
     public void newGame(){
         App.stage1.show();
         App.stage.close();
-
     }
 
     /**
