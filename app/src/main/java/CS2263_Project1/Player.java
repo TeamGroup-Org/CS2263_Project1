@@ -52,10 +52,12 @@ public class Player {
         Stock stock = portfolio.remove(i);
 
     }
+
     public void updatePlayerAttribute()
     {
         //???
     }
+
     public void foundCorporation(Corporation corporation)
     {
         corporation.found();

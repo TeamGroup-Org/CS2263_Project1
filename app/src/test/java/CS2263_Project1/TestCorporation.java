@@ -14,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestCorporation {
     private Corporation c;
 
-
-
     /**
      * Test for getName method
      */

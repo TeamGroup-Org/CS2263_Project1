@@ -119,7 +119,7 @@
                   <Font name="Centaur" size="15.0" />
                </font>
             </Button>
-            <Button layoutX="591.0" layoutY="477.0" mnemonicParsing="false" onAction="#test" prefHeight="31.0" prefWidth="99.0" text="End Game" textFill="RED">
+            <Button layoutX="591.0" layoutY="477.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="31.0" prefWidth="99.0" text="End Game" textFill="RED">
                <font>
                   <Font name="Centaur" size="15.0" />
                </font>

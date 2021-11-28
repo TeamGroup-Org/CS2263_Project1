@@ -22,7 +22,6 @@ public class menuController {
     /**
      *  Causes the stage to close
      */
-
     public void quitGame(){
         App.stage.close();
     }

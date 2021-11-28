@@ -136,6 +136,13 @@ public class gameBoardController {
         setPlayerTurn();
     }
 
+    /**
+     * Exit game
+     */
+    public void quitGame(){
+        App.stage.close();
+    }
+
     public void test() {
         updatePlayerTiles();
         updateBoard();
