@@ -61,24 +61,24 @@ public class gameBoardController {
         }
     }
 
+    /**
+     *
+     */
     public void playTile() {
 
     }
 
-    public void setPlayerTurn() {
-        if (playerTurn == 1) {
-            turnTracker.setText("Player 1's turn");
-        }
-        else if(playerTurn == 2) {
-            turnTracker.setText("Player 2's turn");
-        }
-    }
-
+    /**
+     *
+     */
     public void updateMoney() {
         player1Money.setText(String.valueOf(player1.getPlayerInfo()));
         player2Money.setText(String.valueOf(player2.getPlayerInfo()));
     }
 
+    /**
+     *
+     */
     public void updatePlayerTiles(){
 
         if (playerTurn == 1) {
@@ -101,25 +101,42 @@ public class gameBoardController {
         }
     }
 
-    public void endTurn() {
-        playerTurn = turnCalculator();
-        setPlayerTurn();
+    /**
+     * setPlayerTun updates the text of the turnTracker label in the gameboard scene
+     */
+    public void setPlayerTurn() {
+        if (playerTurn == 1) {
+            turnTracker.setText("Player 1's turn");
+        }
+        else if(playerTurn == 2) {
+            turnTracker.setText("Player 2's turn");
+        }
     }
 
     /**
-     * turnCalculator increments init variable playerTurn by one, then modifies it to return either 1 or 2 using
-     * modulo division.
+     * endTurn causes the game to move into the next player's turn by refreshing player attributes
+     * and editing text on the board.
+     */
+    public void endTurn() {
+        //Player turn moves forward
+        nextTurn();
+
+        // Player specific updates
+        updatePlayerTiles();
+    }
+
+    /**
+     * nextTurn increments init variable playerTurn by one and then modifies it to return either 1 or 2 using
+     * modulo division. Calls setPlayerTurn to update the turn counter on the gameboard.
      *
      * @return integer either 1 or 2
      */
-    public int turnCalculator() {
-        int newTurn;
-
-        newTurn = playerTurn++ % 2 + 1;
-        return newTurn;
+    private void nextTurn() {
+        playerTurn = playerTurn++ % 2 + 1;
+        setPlayerTurn();
     }
 
-    public void test(){
+    public void test() {
         updatePlayerTiles();
         updateBoard();
         updateMoney();
