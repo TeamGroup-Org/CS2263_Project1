@@ -7,6 +7,7 @@ package CS2263_Project1;
  */
 
 public class Tile {
+
     String id;
     boolean isSpent;
 

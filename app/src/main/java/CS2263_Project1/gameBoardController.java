@@ -140,7 +140,7 @@ public class gameBoardController {
      * Exit game
      */
     public void quitGame(){
-        App.stage.close();
+        App.stage1.close();
     }
 
     public void test() {
