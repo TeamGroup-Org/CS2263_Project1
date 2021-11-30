@@ -52,7 +52,7 @@
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#728290" height="529.0" layoutX="-9.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="733.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="273.0" layoutX="30.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="386.0" />
-            <GridPane fx:id="gameboard" alignment="CENTER" gridLinesVisible="true" layoutX="30.0" layoutY="24.0" prefHeight="273.0" prefWidth="386.0" style="-fx-background-color: 10;">
+            <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" layoutX="30.0" layoutY="24.0" prefHeight="273.0" prefWidth="386.0" style="-fx-background-color: 10;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -178,7 +178,7 @@
                      </font></Label>
                </children>
             </Pane>
-            <Button layoutX="440.0" layoutY="479.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="95.0" text="End Game">
+            <Button fx:id="endGame" layoutX="440.0" layoutY="479.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="95.0" text="End Game">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>

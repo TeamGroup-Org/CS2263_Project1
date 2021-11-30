@@ -32,9 +32,10 @@ public class GameBoardController {
     public Label turnTracker;
     public HBox TileHolder;
     public Label stockList;
-    public GridPane gameboard;
+    public GridPane gridPane;
     public Label player1Money;
     public Label player2Money;
+    public Button endGame;
 
     //These buttons are meant to be the Player's hand
     public Button tile1; public Button tile2; public Button tile3;
@@ -44,6 +45,20 @@ public class GameBoardController {
      *
      */
     public void updateBoard() {
+        for (int i = 0; i < gameBoard.tileArray.size(); i++) {
+            if (gameBoard.tileArray.get(i).isSpent) {
+                //CHANGE BACKGROUND COLOR TO Color.color(47,79,79)
+            }
+        }
+    }
+
+    public void updateEndButton() {
+        if (gameBoard.getGameCanEnd()) {
+            endGame.setTextFill(Color.color(64,60,34));
+        }
+    }
+
+    public void initGridPane() {
         int tileArrayTracker = 0;
         for (int tile_X = 0; tile_X < 9; tile_X++) {
             for (int tile_Y = 0; tile_Y < 12; tile_Y++) {
@@ -51,11 +66,7 @@ public class GameBoardController {
 
                 tileLabel.setText(gameBoard.boardArray.get(tileArrayTracker));
 
-                if (gameBoard.tileArray.get(tile_X + tile_Y).isSpent) {
-                    tileLabel.setTextFill(Color.color(1,0,0));
-                }
-
-                gameboard.add(tileLabel,tile_Y,tile_X);
+                gridPane.add(tileLabel,tile_Y,tile_X);
                 tileArrayTracker++;
             }
         }
@@ -121,8 +132,9 @@ public class GameBoardController {
         //Player turn moves forward
         nextTurn();
 
-        // Player specific updates
+        // Updates
         updatePlayerTiles();
+        updateBoard();
     }
 
     /**
@@ -145,7 +157,7 @@ public class GameBoardController {
 
     public void test() {
         updatePlayerTiles();
-        updateBoard();
+        initGridPane();
         updateMoney();
     }
 }
