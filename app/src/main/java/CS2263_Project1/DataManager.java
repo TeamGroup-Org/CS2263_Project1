@@ -26,6 +26,10 @@ public class DataManager {
 
     @Getter
     @Setter
+    private Player playerData2;
+
+    @Getter
+    @Setter
     private Board boardData;
 
     @Getter
@@ -34,17 +38,17 @@ public class DataManager {
 
     /**
      *
-     * @param p Player
+     * @param p1 Player
      * @param b Board
      * @param t TileTray
      *          Writes out broad range of data to three files
      */
-    public void Write(Player p, Board b, TileTray t){
+    public void Write(Player p1, Player p2, Board b, TileTray t){
         FileWriter writer = null;
         try {
-            FileWriter writerP = new FileWriter("player.json");
+            FileWriter writerP = new FileWriter("player1.json");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(p,writerP);
+            gson.toJson(p1,writerP);
             writerP.flush();
             writerP.close();
         } catch (IOException e) {
@@ -52,9 +56,19 @@ public class DataManager {
         }
 
         try {
+            FileWriter writerP2 = new FileWriter("player2.json");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(p2,writerP2);
+            writerP2.flush();
+            writerP2.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
             FileWriter writerB = new FileWriter("board.json");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(p,writerB);
+            gson.toJson(b,writerB);
             writerB.flush();
             writerB.close();
         } catch (IOException e) {
@@ -62,9 +76,9 @@ public class DataManager {
         }
 
         try {
-            FileWriter writerT = new FileWriter("player.json");
+            FileWriter writerT = new FileWriter("tray.json");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(p,writerT);
+            gson.toJson(t,writerT);
             writerT.flush();
             writerT.close();
         } catch (IOException e) {
@@ -86,7 +100,9 @@ public class DataManager {
 
         Type trayInfo = new TypeToken<TileTray>() {}.getType();
 
-        JsonReader playerReader = new JsonReader(new FileReader("player.json"));
+        JsonReader playerReader = new JsonReader(new FileReader("player1.json"));
+
+        JsonReader playerReader2 = new JsonReader(new FileReader("player2.json"));
 
         JsonReader boardReader = new JsonReader(new FileReader("board.json"));
 
@@ -94,6 +110,9 @@ public class DataManager {
 
         Gson gson = new Gson();
         playerData = gson.fromJson(playerReader, playerInfo);
+
+        Gson gsonS = new Gson();
+        playerData2 = gson.fromJson(playerReader, playerInfo);
 
         Gson gsonTwo = new Gson();
         boardData = gson.fromJson(boardReader, BoardInfo);
