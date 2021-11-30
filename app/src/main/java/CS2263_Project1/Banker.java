@@ -45,6 +45,9 @@ public class Banker {
         else if (player2.getPlayerInfo() > player1.getPlayerInfo()){
             setWinner(player2);
         }
+        else if (player1.getPlayerInfo() == player2.getPlayerInfo()){
+            setWinner(player1);
+        }
         return winner;
 
     }
