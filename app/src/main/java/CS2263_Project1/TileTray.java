@@ -25,7 +25,6 @@ public class TileTray {
         if (tray.isEmpty()){
             return null;
         }
-
         return tray;
     }
 
