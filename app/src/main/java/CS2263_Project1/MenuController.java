@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  * @author Coby Garner
  */
 
-public class menuController {
+public class MenuController {
 
     @FXML
     private Button quitButton;

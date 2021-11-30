@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * @author David Hellwig
- * @author Noah Ownes
+ * @author Noah Owens
  * @author Ekow Barlow
  *
  * @version 1.0.0

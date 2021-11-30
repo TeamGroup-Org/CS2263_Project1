@@ -20,7 +20,7 @@ public class TileTrayTest {
     @Test
     public void testGetTray() {
         ArrayList<Tile> list = new ArrayList<>();
-        Tile tile = new Tile("A1", false);
+        Tile tile = new Tile("A1", false, null, null, null, null, null, null);
         list.add(tile);
         TileTray t = new TileTray(list);
         assertNotNull(t.getTray());
@@ -32,11 +32,11 @@ public class TileTrayTest {
     @Test
     public void testSetTray() {
         ArrayList<Tile> list = new ArrayList<>();
-        Tile tile = new Tile("A1", false);
+        Tile tile = new Tile("A1", false, null, null, null, null, null, null);
         list.add(tile);
         TileTray t = new TileTray(list);
         ArrayList<Tile> list2 = new ArrayList<>();
-        Tile tile2 = new Tile("A1", false);
+        Tile tile2 = new Tile("A1", false, null, null, null, null, null, null);
         list2.add(tile2);
         t.setTray(list2);
         assertEquals(list2, t.getTray());
@@ -47,7 +47,7 @@ public class TileTrayTest {
     @Test
     public void testIsEmpty(){
         ArrayList<Tile> list = new ArrayList<>();
-        Tile tile = new Tile("A1", false);
+        Tile tile = new Tile("A1", false, null, null, null, null, null, null);
         list.add(tile);
         TileTray t = new TileTray(list);
         assertTrue(t.isEmpty());

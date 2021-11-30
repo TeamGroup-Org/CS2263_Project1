@@ -13,7 +13,7 @@ public class TileTest {
      */
     @Test
     public void testSetSpent(){
-        Tile tile = new Tile("A1", false);
+        Tile tile = new Tile("A1", false, null, null, null, null, null, null);
         tile.setSpentStatus();
         assertTrue(tile.isSpent);
     }
@@ -23,7 +23,7 @@ public class TileTest {
      */
     @Test
     public void testConstructor(){
-        Tile tile = new Tile("A1", true);
+        Tile tile = new Tile("A1", true, null, null, null, null, null, null);
         assertTrue(tile.isSpent);
 
     }

@@ -28,7 +28,7 @@ public class BoardTest {
     @Test
     public void testPlaceTile(){
 
-        Tile t = new Tile("A1", false);
+        Tile t = new Tile("A1", false, null, null, null, null, null, null);
         board.placeTile(t);
         assertTrue(t.isSpent);
     }

@@ -25,9 +25,9 @@ public class PlayerTest {
 
         ArrayList<Tile> hand = new ArrayList<>();
 
-        Tile t1 = new Tile("A1", false);
+        Tile t1 = new Tile("A1", false, null, null, null, null, null, null);
 
-        Tile t2 = new Tile("A2", false);
+        Tile t2 = new Tile("A2", false, null, null, null, null, null, null);
 
         hand.add(t1);
 
@@ -75,7 +75,7 @@ public class PlayerTest {
      */
     @Test
     public void testPlayTile(){
-        Tile t = new Tile("A1", false);
+        Tile t = new Tile("A1", false, null, null, null, null, null, null);
         player.playTile(board, t);
         assertTrue(t.isSpent);
 

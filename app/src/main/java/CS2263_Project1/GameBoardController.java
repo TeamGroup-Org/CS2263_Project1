@@ -18,7 +18,7 @@ import java.awt.*;
  * @author Noah Owens
  */
 
-public class gameBoardController {
+public class GameBoardController {
 
     static Board gameBoard = new Board();
     private int playerTurn = 1;

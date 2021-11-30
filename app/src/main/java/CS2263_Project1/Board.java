@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import lombok.extern.log4j.Log4j2;
+
 /**
  * Board class creates an arraylist representing the acquire board and provides methods for manipulating it.
  *
@@ -14,12 +16,21 @@ import java.util.Random;
  * @version 1.0.0
  */
 
+@Log4j2
 public class Board {
     private boolean gameCanEnd;
+
+    //boardArray stores String representations of each tile, and is drawn from for the player's hand right now
     public ArrayList<String> boardArray = new ArrayList<>();
+
+    //tileArray stores the actual Tile objects and their position related to each other.
     public ArrayList<Tile> tileArray = new ArrayList<>();
+
     private ArrayList<Corporation> corporationTray = new ArrayList<>();
 
+    /**
+     * Board constructor calls init method
+     */
     public Board() {
         initBoard();
     }
@@ -29,12 +40,28 @@ public class Board {
      * and sets the value of gameCanEnd to false, preparing the game board for play.
      */
     private void initBoard() {
+        //Make tileArray and then make the tiles recognize each other
+        createTiles();
+        linkTiles();
+
+        //set gameCanEnd to false
+        gameCanEnd = false;
+
+        //create the corporations (should be replaced by a json load I think.)
+        initCorporationTray();
+    }
+
+    /**
+     * fills boardArray with 108 Tile objects (From a1 to i12)
+     */
+    private void createTiles() {
+        int size = tileArray.size();
         int tileCoordNum;
         String tileCoordLetter;
 
         //Create every letter number combination from 1-12 and A-I to fill boardArray;
         for (char y = 'A'; y <= 'I'; y++) {
-                tileCoordLetter = String.valueOf(y);
+            tileCoordLetter = String.valueOf(y);
 
             for (int x = 1; x <= 12; x++) {
                 tileCoordNum = x;
@@ -42,16 +69,56 @@ public class Board {
                 boardArray.add(tileCoordLetter + String.valueOf(tileCoordNum));
             }
             for (String tileId : boardArray) {
-                Tile tile = new Tile(tileId,false);
+                Tile tile = new Tile(tileId, false, null, null, null, null, null, null);
                 tileArray.add(tile);
             }
         }
+    }
 
-        //set gameCanEnd to false
-        gameCanEnd = false;
+    /**
+     * Links tiles to each other by assigning all positional fields (left, right, up, down).
+     * Tiles above and below any given tile are found by adding/subtracting 12 from current index.
+     *
+     * I don't know if a 2 dimensional doubly linked list exists, but I just invented a bad one I think
+     */
+    public void linkTiles() {
+        int size = tileArray.size();
 
-        //create the corporations (should be replaced by a json load I think.)
-        initCorporationTray();
+        int rowLength = 12;
+        int leftTile = 0;
+        int rightTile = rowLength - 1;
+        int topRowEnd = 12;
+        int bottomRowStart = 96;
+
+
+        for (int i = 0; i < size; i++) {
+            Tile currentTile = tileArray.get(i);
+            int rowPosition = i % rowLength;
+
+            //Assign Lefts and Rights
+            if (i % rowLength != leftTile && i % rowLength != rightTile) {
+                currentTile.setLeft(tileArray.get(i-1));
+                currentTile.setRight(tileArray.get(i+1));
+            }
+            else if (i % rowLength == leftTile) {
+                currentTile.setRight(tileArray.get(i+1));
+            }
+            else if (i % rowLength == rightTile) {
+                currentTile.setLeft(tileArray.get(i-1));
+            }
+
+            //Assign Ups and Downs
+            if (i < topRowEnd) {
+                currentTile.setDown(tileArray.get(i+rowLength));
+            }
+            else if (i > bottomRowStart) {
+                currentTile.setUp(tileArray.get(i-rowLength));
+            }
+            else {
+                currentTile.setDown(tileArray.get(i+rowLength));
+                currentTile.setUp(tileArray.get(i-rowLength));
+            }
+        }
     }
 
     /**

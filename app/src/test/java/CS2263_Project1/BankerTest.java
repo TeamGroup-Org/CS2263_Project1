@@ -32,9 +32,9 @@ public class BankerTest {
 
         ArrayList<Tile> hand = new ArrayList<>();
 
-        Tile t1 = new Tile("A1", false);
+        Tile t1 = new Tile("A1", false, null, null, null, null, null, null);
 
-        Tile t2 = new Tile("A2", false);
+        Tile t2 = new Tile("A2", false, null, null, null, null, null, null);
 
         hand.add(t1);
 
@@ -63,9 +63,9 @@ public class BankerTest {
 
         ArrayList<Tile> hand = new ArrayList<>();
 
-        Tile t1 = new Tile("A1", false);
+        Tile t1 = new Tile("A1", false, null, null, null, null, null, null);
 
-        Tile t2 = new Tile("A2", false);
+        Tile t2 = new Tile("A2", false, null, null, null, null, null, null);
 
         hand.add(t1);
 
