@@ -42,9 +42,20 @@ public class GameBoardController {
     public Button tile4; public Button tile5; public Button tile6;
 
     /**
+     * Behaviors in the initialize method will be run when gameBoard.fxml is loaded
+     */
+    @FXML public void initialize() {
+        updatePlayerTiles();
+        initGridPane();
+        updateMoney();
+    }
+
+    /**
      *
      */
     public void updateBoard() {
+        updateMoney();
+
         for (int i = 0; i < gameBoard.tileArray.size(); i++) {
             if (gameBoard.tileArray.get(i).isSpent) {
                 //CHANGE BACKGROUND COLOR TO Color.color(47,79,79)
@@ -91,24 +102,16 @@ public class GameBoardController {
      *
      */
     public void updatePlayerTiles(){
-
-        if (playerTurn == 1) {
-            tile1.setText(player1.getHand().get(0).id);
-            player1.getHand().get(0).setSpentStatus();
-            tile2.setText(player1.getHand().get(1).id);
-            tile3.setText(player1.getHand().get(2).id);
-            tile4.setText(player1.getHand().get(3).id);
-            tile5.setText(player1.getHand().get(4).id);
-            tile6.setText(player1.getHand().get(5).id);
-        }
-
-        else if (playerTurn == 2) {
-            tile1.setText(player2.getHand().get(0).id);
-            tile2.setText(player2.getHand().get(1).id);
-            tile3.setText(player2.getHand().get(2).id);
-            tile4.setText(player2.getHand().get(3).id);
-            tile5.setText(player2.getHand().get(4).id);
-            tile6.setText(player2.getHand().get(5).id);
+        switch (playerTurn) {
+            case 1: for (int i = 0; i < player1.getHand().size(); i++) {
+                        tile1.setText(player1.getHand().get(i).id);
+                    }
+                    break;
+            case 2: for (int i = 0; i < player2.getHand().size(); i++) {
+                        tile1.setText(player2.getHand().get(i).id);
+                    }
+                    break;
+            default: break;
         }
     }
 
@@ -151,14 +154,8 @@ public class GameBoardController {
     /**
      * Exit game
      */
-    public void quitGame(){
+    public void quitGame() {
         App.stage1.close();
-    }
-
-    public void test() {
-        updatePlayerTiles();
-        initGridPane();
-        updateMoney();
     }
 }
 
