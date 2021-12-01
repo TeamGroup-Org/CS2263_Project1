@@ -48,10 +48,10 @@
 
 <VBox prefHeight="525.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CS2263_Project1.GameBoardController">
    <children>
+      <!-- Window Contents -->
       <AnchorPane>
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#728290" height="529.0" layoutX="-9.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="733.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fcfcfc" height="273.0" layoutX="30.0" layoutY="24.0" stroke="BLACK" strokeType="INSIDE" width="386.0" />
+            <!-- Grid Pane (Game Board Representation) -->
             <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" layoutX="30.0" layoutY="24.0" prefHeight="273.0" prefWidth="386.0" style="-fx-background-color: 10;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -79,21 +79,29 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
+
+            <!-- Money/Turn Pane -->
             <Pane layoutX="469.0" layoutY="31.0" prefHeight="97.0" prefWidth="180.0">
                <children>
+
+                  <!-- Turn Text (Updated Frequently) -->
                   <Label fx:id="turnTracker" layoutX="8.0" layoutY="14.0" text="Player 1's Turn">
                      <font>
                         <Font name="Arial Bold" size="23.0" />
                      </font></Label>
+
+                  <!-- P1 Money -->
                   <Label layoutX="8.0" layoutY="51.0" text="Player 1's Money:">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Label>
-                  <Label layoutX="8.0" layoutY="68.0" text="Player 2's Money:">
+                  <Label fx:id="player1Money" layoutX="113.0" layoutY="51.0" text="0">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Label>
-                  <Label fx:id="player1Money" layoutX="113.0" layoutY="51.0" text="0">
+
+                  <!-- P2 Money -->
+                  <Label layoutX="8.0" layoutY="68.0" text="Player 2's Money:">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Label>
@@ -103,6 +111,8 @@
                      </font></Label>
                </children>
             </Pane>
+
+            <!-- Player Hand -->
             <VBox layoutX="30.0" layoutY="316.0" prefHeight="97.0" prefWidth="410.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tiles in Hand:" />
@@ -121,59 +131,153 @@
                   </HBox>
                </children>
             </VBox>
+
+            <!-- Stocks Pane -->
+            <Pane layoutX="469.0" layoutY="128.0" prefHeight="173.0" prefWidth="180.0">
+               <children>
+                  <Label fx:id="stocksLabel" layoutX="10.0" layoutY="14.0" text="Stocks:">
+                     <font>
+                        <Font name="Arial Bold" size="19.0" />
+                     </font>
+                  </Label>
+
+                     <!-- Worldwide Stock Totals -->
+                     <Label layoutX="15.0" layoutY="48.0" text="Worldwide:">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font></Label>
+                     <Label fx:id="worldwidePlayer1" layoutX="100.0" layoutY="48.0" text="W">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="worldwidePlayer2" layoutX="130.0" layoutY="48.0" text="W2">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+
+                     <!-- Sackson Stock Totals -->
+                     <Label layoutX="15.0" layoutY="65.0" text="Sackson:">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font></Label>
+                     <Label fx:id="sacksonPlayer1" layoutX="100.0" layoutY="65.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="sacksonPlayer2" layoutX="130.0" layoutY="65.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+
+                     <!-- Festival Stock Totals -->
+                     <Label layoutX="15.0" layoutY="82.0" text="Festival:">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font></Label>
+                     <Label fx:id="festivalPlayer1" layoutX="100.0" layoutY="82.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="festivalPlayer2" layoutX="130.0" layoutY="82.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+
+                     <!-- Imperial Stock Totals -->
+                     <Label layoutX="15.0" layoutY="99.0" text="Imperial:">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font></Label>
+                     <Label fx:id="imperialPlayer1" layoutX="100.0" layoutY="99.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="imperialPlayer2" layoutX="130.0" layoutY="99.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+
+                     <!-- American Stock Totals -->
+                     <Label layoutX="15.0" layoutY="116.0" text="American:">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font></Label>
+                     <Label fx:id="americanPlayer1" layoutX="100.0" layoutY="116.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="americanPlayer2" layoutX="130.0" layoutY="116.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+
+                     <!-- Continental Stock Totals -->
+                     <Label layoutX="15.0" layoutY="133.0" text="Continental:">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font></Label>
+                     <Label fx:id="continentalPlayer1" layoutX="100.0" layoutY="133.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="continentalPlayer2" layoutX="130.0" layoutY="133.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+
+                     <!-- Tower Stock Totals -->
+                     <Label layoutX="15.0" layoutY="150.0" text="Tower:">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font></Label>
+                     <Label fx:id="towerPlayer1" layoutX="100.0" layoutY="150.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="towerPlayer2" layoutX="130.0" layoutY="150.0" text="0">
+                        <font>
+                           <Font name="Arial" size="12.0" />
+                        </font>
+                     </Label>
+               </children>
+            </Pane>
+
+            <!-- End Game -->
+            <Button fx:id="endGame" layoutX="440.0" layoutY="479.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="95.0" text="End Game">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Button>
+
+            <!-- End Turn -->
             <Button layoutX="30.0" layoutY="479.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="82.0" text="End Turn">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
             </Button>
+
+            <!-- Quit w/o Saving -->
             <Button layoutX="543.0" layoutY="478.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="31.0" prefWidth="147.0" text="Quit Without Saving" textFill="RED">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Button>
+
+            <!-- Save and Quit -->
             <Button layoutX="543.0" layoutY="435.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="31.0" prefWidth="147.0" text="Save and Quit" textFill="#33801b">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Button>
-            <Pane layoutX="469.0" layoutY="128.0" prefHeight="173.0" prefWidth="180.0">
-               <children>
-                  <Label fx:id="turnTracker1" layoutX="10.0" layoutY="14.0" text="Stocks:">
-                     <font>
-                        <Font name="Arial Bold" size="19.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="15.0" layoutY="48.0" text="Worldwide:">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font></Label>
-                  <Label layoutX="29.0" layoutY="65.0" text="Sackson:">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font></Label>
-                  <Label layoutX="33.0" layoutY="82.0" text="Festival:">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font></Label>
-                  <Label layoutX="29.0" layoutY="99.0" text="Imperial:">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font></Label>
-                  <Label layoutX="22.0" layoutY="116.0" text="American:">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font></Label>
-                  <Label layoutX="11.0" layoutY="133.0" text="Continental:">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font></Label>
-                  <Label layoutX="39.0" layoutY="150.0" text="Tower:">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font></Label>
-               </children>
-            </Pane>
-            <Button fx:id="endGame" layoutX="440.0" layoutY="479.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="95.0" text="End Game">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
