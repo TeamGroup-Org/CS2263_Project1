@@ -189,6 +189,8 @@ public class Board {
         return corporationTray.get(id - 1);
     }
 
+
+    // DEFUNCT METHOD !!!
     /**
      * Generates a randomized hand of 6 tiles for a player from the current tileArray,
      * tiles aren't removed from tileArray until placed onto board

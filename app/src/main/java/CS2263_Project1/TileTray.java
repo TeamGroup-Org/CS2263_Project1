@@ -52,6 +52,10 @@ public class TileTray {
         return tray.size() == 0;
     }
 
+    public void shuffleTray() {
+        Collections.shuffle(tray);
+    }
+
     /**
      * Removes the first tile from the tray until empty, at which point it gives out dummy tiles which will appear in the UI as X tiles
      *

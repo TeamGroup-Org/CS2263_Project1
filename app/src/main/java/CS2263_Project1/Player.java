@@ -17,9 +17,6 @@ public class Player {
     private ArrayList<Tile> playerHand;
     private ArrayList<Stock> portfolio;
 
-    //The "deck" that players will draw from to make their hands
-    public TileTray tileTray = new TileTray(new ArrayList<Tile>());
-
     public Player(int playerIdentity, int wallet, ArrayList<Tile> playerHand, ArrayList<Stock> portfolio) {
         this.playerIdentity = playerIdentity;
         this.wallet = wallet;
@@ -44,14 +41,15 @@ public class Player {
             this.wallet = this.wallet - 0;
         }
     }
-    public void playTile(Board b, Tile t)
-    {
+
+    public void playTile(Board b, Tile t) {
         b.placeTile(t);
     }
-    public void tradeStock(Stock stock, Corporation corporation)
-    {
+
+    public void tradeStock(Stock stock, Corporation corporation) {
         stock.setPrice(corporation.getPrice());
     }
+
     public void sellStock(int i)
     {
         Stock stock = portfolio.remove(i);
@@ -68,17 +66,15 @@ public class Player {
         corporation.found();
     }
 
-    public Tile getTileFromHand()
-    {
+    public Tile getTileFromHand() {
         return playerHand.remove(0);
     }
 
-    public ArrayList<Stock> getPrice()
-    {
+    public ArrayList<Stock> getPrice() {
         return portfolio;
     }
 
-    public ArrayList<Tile> getHand(){
+    public ArrayList<Tile> getHand() {
         return playerHand;
     }
 

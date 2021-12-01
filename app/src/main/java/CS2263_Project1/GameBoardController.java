@@ -21,6 +21,7 @@ import java.awt.*;
 public class GameBoardController {
 
     static Board gameBoard = new Board();
+    private TileTray tileTray = new TileTray(new ArrayList<Tile>());
     private int playerTurn = 1;
     private static final Player player1 = new Player(1,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
     private static final Player player2 = new Player(2,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
@@ -45,13 +46,13 @@ public class GameBoardController {
      * Behaviors in the initialize method will be run when gameBoard.fxml is loaded
      */
     @FXML public void initialize() {
-        updatePlayerTiles();
         initGridPane();
         updateMoney();
+        createStartingHand();
     }
 
     /**
-     *
+     * Updates board relevant features (Money totals, tile colors, stock totals)
      */
     public void updateBoard() {
         updateMoney();
@@ -61,6 +62,43 @@ public class GameBoardController {
                 //CHANGE BACKGROUND COLOR TO Color.color(47,79,79)
             }
         }
+    }
+
+    /**
+     * Assigns actual Tiles to the player's hand instead of string representations
+     *
+     * BUT YOU CAN GET DUPLICATES RIGHT NOW WHICH IS BAD REALLY BAD SO LIKE OOPS I'M GONNA FIX IT THOUGH
+     */
+    public void createStartingHand() {
+        tileTray.shuffleTray();
+
+        // Player 1
+        for (int i = 0; i < 6; i++) {
+            Tile draw = tileTray.askForTile();
+            player1.getHand().add(draw);
+        }
+
+        // Player 2
+        for (int i = 0; i < 6; i++) {
+            Tile draw = tileTray.askForTile();
+            player2.getHand().add(draw);
+        }
+
+        updatePlayerTiles();
+    }
+
+    /**
+     * Places a tile into the requesting player's hand then refreshes the displayed tiles (hBox buttons in UI)
+     *
+     * @param p the player drawing the tile
+     */
+    public void drawTile(Player p) {
+        ArrayList<Tile> playerHand = p.getHand();
+        Tile drawnTile = tileTray.askForTile();
+
+        playerHand.add(drawnTile);
+
+        updatePlayerTiles();
     }
 
     public void updateEndButton() {
@@ -86,7 +124,7 @@ public class GameBoardController {
     /**
      *
      */
-    public void playTile() {
+    public void playTile(Tile playedTile) {
 
     }
 
@@ -102,16 +140,21 @@ public class GameBoardController {
      *
      */
     public void updatePlayerTiles(){
-        switch (playerTurn) {
-            case 1: for (int i = 0; i < player1.getHand().size(); i++) {
-                        tile1.setText(player1.getHand().get(i).id);
-                    }
-                    break;
-            case 2: for (int i = 0; i < player2.getHand().size(); i++) {
-                        tile1.setText(player2.getHand().get(i).id);
-                    }
-                    break;
-            default: break;
+        if (playerTurn == 1) {
+            tile1.setText(player1.getHand().get(0).id);
+            tile2.setText(player1.getHand().get(1).id);
+            tile3.setText(player1.getHand().get(2).id);
+            tile4.setText(player1.getHand().get(3).id);
+            tile5.setText(player1.getHand().get(4).id);
+            tile6.setText(player1.getHand().get(5).id);
+        }
+        else if (playerTurn == 2) {
+            tile1.setText(player2.getHand().get(0).id);
+            tile2.setText(player2.getHand().get(1).id);
+            tile3.setText(player2.getHand().get(2).id);
+            tile4.setText(player2.getHand().get(3).id);
+            tile5.setText(player2.getHand().get(4).id);
+            tile6.setText(player2.getHand().get(5).id);
         }
     }
 
@@ -157,8 +200,6 @@ public class GameBoardController {
     public void quitGame() {
         App.stage1.close();
     }
-
-
 }
 
 
