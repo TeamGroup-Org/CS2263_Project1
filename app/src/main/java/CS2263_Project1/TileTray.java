@@ -1,6 +1,7 @@
 package CS2263_Project1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author David Hellwig
@@ -10,9 +11,14 @@ import java.util.ArrayList;
  * @version 1.0.0
  */
 public class TileTray {
-    private ArrayList<Tile> tray = new ArrayList<>();
+    private ArrayList<Tile> tray;
 
-    public TileTray(ArrayList<CS2263_Project1.Tile> tray) {
+    /**
+     * Constructor
+     *
+     * @param tray is the ArrayList of Tiles that will be updated during TileTray tasks
+     */
+    public TileTray(ArrayList<Tile> tray) {
         this.tray = tray;
     }
 
@@ -22,7 +28,7 @@ public class TileTray {
      * @return an ArrayList of type Tile
      */
     public ArrayList<Tile> getTray() {
-        if (tray.isEmpty()){
+        if (tray.isEmpty()) {
             return null;
         }
         return tray;
@@ -33,14 +39,31 @@ public class TileTray {
      *
      * @param tray is the new ArrayList of Tiles being used
      */
-    public void setTray(ArrayList<CS2263_Project1.Tile> tray) {
+    public void setTray(ArrayList<Tile> tray) {
         this.tray = tray;
     }
 
+    /**
+     * Determines if tray is empty
+     *
+     * @return true if tray contains no tiles, false otherwise.
+     */
     public boolean isEmpty() {
-        if (tray.size() != 0) {
-            return true;
+        return tray.size() == 0;
+    }
+
+    /**
+     * Removes the first tile from the tray until empty, at which point it gives out dummy tiles which will appear in the UI as X tiles
+     *
+     * @return A tile from the ArrayList tray
+     */
+    public Tile askForTile() {
+        if (tray.isEmpty()) {
+            // Draws a dummy tile if the bag of tiles is empty, which should ordinarily not happen before game end.
+            return new Tile("XX", false, null, null, null, null, null, null);
         }
-        return false;
+        else {
+            return tray.remove(0);
+        }
     }
 }

@@ -68,18 +68,6 @@ public class Player {
         corporation.found();
     }
 
-    public Tile askForTile() {
-        ArrayList<Tile> tray = tileTray.getTray();
-        Collections.shuffle(tray);
-
-        if (tray.get(0) == null) {
-            return null;
-        }
-        else {
-            return tray.remove(0);
-        }
-    }
-
     public Tile getTileFromHand()
     {
         return playerHand.remove(0);
