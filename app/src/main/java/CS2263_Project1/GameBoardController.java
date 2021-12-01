@@ -3,6 +3,8 @@ package CS2263_Project1;
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -110,6 +112,7 @@ public class GameBoardController {
 
     public void initGridPane() {
         int tileArrayTracker = 0;
+
         for (int tile_X = 0; tile_X < 9; tile_X++) {
             for (int tile_Y = 0; tile_Y < 12; tile_Y++) {
                 Label tileLabel = new Label();
@@ -117,6 +120,7 @@ public class GameBoardController {
                 tileLabel.setText(gameBoard.boardArray.get(tileArrayTracker));
 
                 gridPane.add(tileLabel,tile_Y,tile_X);
+                GridPane.setHalignment(tileLabel, HPos.CENTER);
                 tileArrayTracker++;
             }
         }
