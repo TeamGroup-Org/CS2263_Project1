@@ -99,7 +99,7 @@ public class BankerTest {
     @Test
     public void testCalculateReturn(){
         banker.calculateReturn(corporation, player);
-        assertEquals(5000, player.getPlayerInfo());
+        assertEquals(5000, player.getWallet());
     }
 
     /**

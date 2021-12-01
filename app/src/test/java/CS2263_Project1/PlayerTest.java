@@ -56,9 +56,9 @@ public class PlayerTest {
     @Test
     public void testTakeMoney(){
         player.takeMoney(50);
-        assertEquals(1050, player.getPlayerInfo());
+        assertEquals(1050, player.getWallet());
         player.takeMoney(-1);
-        assertEquals(1050, player.getPlayerInfo());
+        assertEquals(1050, player.getWallet());
     }
     /**
      * test for takeMoney method
@@ -66,9 +66,9 @@ public class PlayerTest {
     @Test
     public void testSpendMoney(){
         player.spendMoney(50);
-        assertEquals(1000, player.getPlayerInfo());
+        assertEquals(1000, player.getWallet());
         player.spendMoney(-50);
-        assertEquals(1000, player.getPlayerInfo());
+        assertEquals(1000, player.getWallet());
     }
     /**
      * test for playTile method
