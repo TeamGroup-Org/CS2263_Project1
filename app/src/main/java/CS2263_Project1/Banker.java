@@ -11,10 +11,16 @@ public class Banker {
 
     private Player winner;
 
+    /**
+     * Empty constructor
+     */
+    public Banker() {
+
+    }
+
     public void getNewPrice(Corporation c){
 
         newPrice = c.getPrice();
-
 
     }
 
@@ -25,7 +31,6 @@ public class Banker {
      */
     public void setStockPrice(Stock stock,int value){
         stock.setPrice(value);
-
     }
 
     /**
@@ -34,7 +39,7 @@ public class Banker {
      * @param player
      */
     public void calculateReturn(Corporation c, Player player){
-        int i = player.getPlayerInfo() + c.getMajorityBonus() + c.getMinorityBonus();
+        int i = player.getWallet() + c.getMajorityBonus() + c.getMinorityBonus();
         player.takeMoney(i);
 
     }
@@ -46,13 +51,13 @@ public class Banker {
      * @return
      */
     public Player getWinner(Player player1, Player player2){
-        if (player1.getPlayerInfo() > player2.getPlayerInfo()){
+        if (player1.getWallet() > player2.getWallet()){
             setWinner(player1);
         }
-        else if (player2.getPlayerInfo() > player1.getPlayerInfo()){
+        else if (player2.getWallet() > player1.getWallet()){
             setWinner(player2);
         }
-        else if (player1.getPlayerInfo() == player2.getPlayerInfo()){
+        else if (player1.getWallet() == player2.getWallet()){
             setWinner(new Player(99, 0, null, null));
         }
         return winner;

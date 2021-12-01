@@ -20,6 +20,7 @@ import java.awt.*;
 
 public class GameBoardController {
 
+    static Banker banker = new Banker();
     static Board gameBoard = new Board();
     private TileTray tileTray = new TileTray(new ArrayList<Tile>());
     private int playerTurn = 1;
@@ -132,8 +133,8 @@ public class GameBoardController {
      *
      */
     public void updateMoney() {
-        player1Money.setText(String.valueOf(player1.getPlayerInfo()));
-        player2Money.setText(String.valueOf(player2.getPlayerInfo()));
+        player1Money.setText(String.valueOf(player1.getWallet()));
+        player2Money.setText(String.valueOf(player2.getWallet()));
     }
 
     /**

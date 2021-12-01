@@ -78,7 +78,6 @@ public class PlayerTest {
         Tile t = new Tile("A1", false, null, null, null, null, null, null);
         player.playTile(board, t);
         assertTrue(t.isSpent);
-
     }
 
     /**
@@ -98,7 +97,7 @@ public class PlayerTest {
     @Test
     public void testSellStock(){
         player.sellStock(0);
-        assertEquals(0,player.getPrice().size());
+        assertEquals(0,player.getPortfolio().size());
     }
 
     /**
@@ -111,6 +110,4 @@ public class PlayerTest {
         assertEquals(2,c.getSize());
         assertTrue(c.getInUse());
     }
-
-
 }
