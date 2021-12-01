@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+
 /**
  * Menu Controller Class contains all methods used as part of the Main Menu UI stage
  *
@@ -32,14 +34,18 @@ public class MenuController {
 
     public void newGame(){
         App.stage1.show();
+
         App.stage.close();
     }
 
     /**
-     *
+     * Starts a new game and then sets the players and board up
      */
 
     public void loadGame(){
+
+
+
 
     }
 }

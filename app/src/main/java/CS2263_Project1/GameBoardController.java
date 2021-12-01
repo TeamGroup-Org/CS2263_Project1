@@ -26,7 +26,7 @@ public class GameBoardController {
     private static final Player player2 = new Player(2,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
 
 
-    // TileTray p1TileTray = new TileTray();
+    //TileTray p1TileTray = new TileTray();
     // Player player1 = new Player(1,0, ,)
     @FXML
     public Label turnTracker;
@@ -157,6 +157,8 @@ public class GameBoardController {
     public void quitGame() {
         App.stage1.close();
     }
+
+
 }
 
 

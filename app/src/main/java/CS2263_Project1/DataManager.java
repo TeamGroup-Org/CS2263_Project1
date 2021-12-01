@@ -7,10 +7,7 @@ import com.google.gson.stream.JsonReader;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +43,7 @@ public class DataManager {
     public void Write(Player p1, Player p2, Board b, TileTray t){
         FileWriter writer = null;
         try {
+            truncate(new File("player1.json"));
             FileWriter writerP = new FileWriter("player1.json");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(p1,writerP);
@@ -56,6 +54,7 @@ public class DataManager {
         }
 
         try {
+            truncate(new File("player2.json"));
             FileWriter writerP2 = new FileWriter("player2.json");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(p2,writerP2);
@@ -66,6 +65,7 @@ public class DataManager {
         }
 
         try {
+            truncate(new File("board.json"));
             FileWriter writerB = new FileWriter("board.json");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(b,writerB);
@@ -76,6 +76,7 @@ public class DataManager {
         }
 
         try {
+            truncate(new File("tray.json"));
             FileWriter writerT = new FileWriter("tray.json");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(t,writerT);
@@ -122,5 +123,15 @@ public class DataManager {
 
 
 
+    }
+
+    /**
+     *  Truncates a file
+     * @param file file
+     * @throws IOException throws exception when file doesn't exist
+     */
+    public void truncate(File file) throws IOException {
+        FileWriter truncater = new FileWriter(file, false);
+        truncater.flush();
     }
 }
