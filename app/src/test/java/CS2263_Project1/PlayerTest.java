@@ -70,15 +70,16 @@ public class PlayerTest {
         player.spendMoney(-50);
         assertEquals(1000, player.getWallet());
     }
-    /**
-     * test for playTile method
-     */
-    @Test
-    public void testPlayTile(){
-        Tile t = new Tile("A1", false, null, null, null, null, null, null);
-        player.playTile(board, t);
-        assertTrue(t.isSpent);
-    }
+
+//    /**
+//     * test for playTile method
+//     */
+//    @Test
+//    public void testPlayTile(){
+//        Tile t = new Tile("A1", false, null, null, null, null, null, null);
+//        player.playTile(board, t);
+//        assertTrue(t.isSpent);
+//    }
 
     /**
      * test for tradeStock method

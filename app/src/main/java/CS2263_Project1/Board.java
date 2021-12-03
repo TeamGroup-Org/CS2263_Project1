@@ -189,11 +189,9 @@ public class Board {
         return corporationTray.get(id - 1);
     }
 
-
-    // DEFUNCT METHOD !!!
     /**
-     * Generates a randomized hand of 6 tiles for a player from the current tileArray,
-     * tiles aren't removed from tileArray until placed onto board
+     * Generates a randomized hand of 6 tiles for a player from the current tileArray, removing as they are drawn
+     *
      * @return returns an arraylist of 6 random tiles
      */
     public ArrayList<Tile> generatePlayerHand() {
@@ -202,10 +200,31 @@ public class Board {
         for(int i = 0; i<6; i++){
             Random rand = new Random();
             int handRand = rand.nextInt(tileArray.size());
+
             Tile handTile = tileArray.get(handRand);
             hand.add(handTile);
+
             tileArray.remove(handTile);
         }
+        return hand;
+    }
+
+    /**
+     * Draws a single random tile into player hand and returns whole player hand
+     *
+     * @return whole player hand
+     */
+    public ArrayList<Tile> drawTileToHand() {
+        ArrayList<Tile> hand = new ArrayList<>();
+
+        Random rand = new Random();
+        int handRand = rand.nextInt(tileArray.size());
+
+        Tile handTile = tileArray.get(handRand);
+        hand.add(handTile);
+
+        tileArray.remove(handTile);
+
         return hand;
     }
 }

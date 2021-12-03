@@ -65,9 +65,10 @@ public class Player {
     }
 
     /**
-     * THIS WILL NOT SURVIVE OR IT WILL BE FOREVER CHANGED (I'M WORKING ON THIS SYSTEM)
-     * @param b
-     * @param t
+     * Flags tile from player hand as spent
+     *
+     * @param b game board in use
+     * @param t the tile being removed (returned from getTileFromHand())
      */
     public void playTile(Board b, Tile t) {
         b.placeTile(t);
