@@ -16,7 +16,7 @@ import java.util.Collections;
 
 
 public class Player {
-    private  final int playerIdentity;
+    public final int playerIdentity;
     private int wallet;
     private ArrayList<Tile> playerHand;
     private ArrayList<Stock> portfolio;
@@ -105,5 +105,6 @@ public class Player {
 
     public ArrayList<Stock> getPortfolio() {return portfolio;}
     public ArrayList<Tile> getHand() {return playerHand;}
+    public void setHand(ArrayList<Tile> hand) {this.playerHand = hand;}
     public int getWallet() {return wallet;}
 }

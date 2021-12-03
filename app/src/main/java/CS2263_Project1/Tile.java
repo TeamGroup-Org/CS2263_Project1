@@ -2,6 +2,7 @@ package CS2263_Project1;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author David Hellwig
@@ -72,10 +73,37 @@ public class Tile {
      */
     public Tile(){}
 
-    /**
-     * Sets status to true, indicating that it is placed
-     */
-    public void setSpentStatus(){
-        isSpent = true;
+    public String nullCheckedToString() {
+
+        String ncId = id;
+
+        String ncIsSpent = String.valueOf(this.isSpent);
+
+        String ncMemberOf = "null";
+        if (memberOf != null) { ncMemberOf = this.memberOf.getName(); }
+
+        String ncOwner = "null";
+        if (owner != null) { ncOwner = String.valueOf(this.owner.playerIdentity); }
+
+        String ncLeft = "null";
+        if (left != null) { ncLeft = this.left.id; }
+
+        String ncRight = "null";
+        if (right != null) { ncRight = this.right.id; }
+
+        String ncUp = "null";
+        if (up != null) { ncUp = this.up.id; }
+
+        String ncDown = "null";
+        if (down != null) { ncDown = this.down.id; }
+
+        return "Tile [id=" + ncId +
+                ", isSpent=" + ncIsSpent +
+                ", memberOf=" + ncMemberOf +
+                ", owner=" + ncOwner +
+                ", left=" + ncLeft +
+                ", right=" + ncRight +
+                ", up=" + ncUp +
+                ", down=" + ncDown + "]";
     }
 }

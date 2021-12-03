@@ -174,12 +174,13 @@ public class GameBoardController {
         log.info("TileHolder filled with P" + playerTurn + " hand");
     }
 
-    public void placeTile(ActionEvent e){
+    public Tile placeTile(ActionEvent e){
 
         Button b = (Button) e.getTarget();
         log.info("placeTile method called on: " + b);
 
         ObservableList<Node> buttonList = TileHolder.getChildren();
+        Tile t = (Tile) b.getUserData();
         Tile tilePlayed;
 
         switch (playerTurn) {
@@ -201,17 +202,9 @@ public class GameBoardController {
 
         updatePlayerTiles();
 
-//        //Use this part to remove button and tile from actual UI after tile is played
-//        TileHolder.getChildren().remove(e.getTarget());
-//        Button b = (Button) e.getTarget();
-//
-//        //Retrieve stored tile
-//        Tile t = (Tile) b.getUserData();
-//        System.out.println(t.id);
-//
-//        //If tiles had only integers as ID's, they could be referenced in the gridpane like this, just an idea
-//
-//        //gridPane.getChildren().get(t.id);
+        log.info("placeTile method returned: " + t.nullCheckedToString());
+
+        return t;
     }
 
     /**
