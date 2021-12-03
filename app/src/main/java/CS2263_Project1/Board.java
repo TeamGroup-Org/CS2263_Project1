@@ -68,6 +68,7 @@ public class Board {
 
                 boardArray.add(tileCoordLetter + String.valueOf(tileCoordNum));
             }
+
             for (String tileId : boardArray) {
                 Tile tile = new Tile(tileId, false, null, null, null, null, null, null);
                 tileArray.add(tile);
@@ -82,16 +83,11 @@ public class Board {
      * I don't know if a 2 dimensional doubly linked list exists, but I just invented a bad one I think
      */
     public void linkTiles() {
-        int size = tileArray.size();
-
         int rowLength = 12;
         int leftTile = 0;
         int rightTile = rowLength - 1;
-        int topRowEnd = 12;
-        int bottomRowStart = 96;
 
-
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < tileArray.size(); i++) {
             Tile currentTile = tileArray.get(i);
             int rowPosition = i % rowLength;
 
@@ -106,17 +102,20 @@ public class Board {
             else if (i % rowLength == rightTile) {
                 currentTile.setLeft(tileArray.get(i-1));
             }
+            else {
+                log.info("Something has gone very very wrong in the linkTiles() method");
+            }
 
             //Assign Ups and Downs
-            if (i < topRowEnd) {
-                currentTile.setDown(tileArray.get(i+rowLength));
+            if (i >= 12 && i <= 95) {
+                currentTile.setUp(tileArray.get(i-12));
+                currentTile.setDown(tileArray.get(i+12));
             }
-            else if (i > bottomRowStart) {
-                currentTile.setUp(tileArray.get(i-rowLength));
+            else if (i <= 12) {
+                currentTile.setDown(tileArray.get(i+12));
             }
-            else {
-                currentTile.setDown(tileArray.get(i+rowLength));
-                currentTile.setUp(tileArray.get(i-rowLength));
+            else if (i <= 95) {
+                currentTile.setUp(tileArray.get(i-12));
             }
         }
     }
@@ -153,6 +152,7 @@ public class Board {
         //game end conditions
         final int sizeCutoff = 41;
         final int safeCutoff = 4;
+        
         //if safeCount exceeds 4, the game can end.
         int safeCount = 0;
 
@@ -225,6 +225,7 @@ public class Board {
 
         tileArray.remove(handTile);
 
+        log.info(handTile + " added to hand");
         return hand;
     }
 }
