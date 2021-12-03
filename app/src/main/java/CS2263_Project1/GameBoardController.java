@@ -1,17 +1,16 @@
 package CS2263_Project1;
 
 import java.util.ArrayList;
-import java.util.Random;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import org.checkerframework.checker.units.qual.C;
-import java.awt.*;
 
 /**
  * Game Board Controller Class contains all methods used as part of the game UI stage
@@ -142,25 +141,43 @@ public class GameBoardController {
     }
 
     /**
-     *
+     * Sets the button text to the IDs of tiles in player hand
+     * Stores Actual Tiles into the buttons to be referenced later using getUserId() Method
      */
     public void updatePlayerTiles(){
         if (playerTurn == 1) {
-            tile1.setText(player1.getHand().get(0).id);
-            tile2.setText(player1.getHand().get(1).id);
-            tile3.setText(player1.getHand().get(2).id);
-            tile4.setText(player1.getHand().get(3).id);
-            tile5.setText(player1.getHand().get(4).id);
-            tile6.setText(player1.getHand().get(5).id);
+            int i = 0;
+            for(Node n : TileHolder.getChildren())
+                if (n instanceof Button) {
+                    ((Button) n).setText(player1.getHand().get(i).id);
+                    n.setUserData(player1.getHand().get(i));
+                    i++;
+                }
         }
         else if (playerTurn == 2) {
-            tile1.setText(player2.getHand().get(0).id);
-            tile2.setText(player2.getHand().get(1).id);
-            tile3.setText(player2.getHand().get(2).id);
-            tile4.setText(player2.getHand().get(3).id);
-            tile5.setText(player2.getHand().get(4).id);
-            tile6.setText(player2.getHand().get(5).id);
-        }
+            int i = 0;
+            for(Node n : TileHolder.getChildren())
+                if(n instanceof Button) {
+                    ((Button) n).setText(player2.getHand().get(i).id);
+                    n.setUserData(player2.getHand().get(i));
+                    i++;
+                }
+            }
+    }
+
+    public void placeTile(ActionEvent e){
+
+        //Use this part to remove button and tile from actual UI after tile is played
+        TileHolder.getChildren().remove(e.getTarget());
+        Button b = (Button) e.getTarget();
+
+        //Retrieve stored tile
+        Tile t = (Tile) b.getUserData();
+        System.out.println(t.id);
+
+        //If tiles had only integers as ID's, they could be referenced in the gridpane like this, just an idea
+
+        //gridPane.getChildren().get(t.id);
     }
 
     /**
