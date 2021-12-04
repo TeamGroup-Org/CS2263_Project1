@@ -106,17 +106,20 @@ public class Board {
                 log.info("Something has gone very very wrong in the linkTiles() method");
             }
 
-            //Assign Ups and Downs
-            if (i >= 12 && i <= 95) {
-                currentTile.setUp(tileArray.get(i-12));
-                currentTile.setDown(tileArray.get(i+12));
-            }
-            else if (i <= 12) {
-                currentTile.setDown(tileArray.get(i+12));
-            }
-            else if (i <= 95) {
-                currentTile.setUp(tileArray.get(i-12));
-            }
+            //If not out of bounds, setDown
+                try {
+                    currentTile.setDown(tileArray.get(i + 12));
+                }
+                catch (Exception e) {
+                    currentTile.setDown(null);
+                }
+
+                try {
+                    currentTile.setUp(tileArray.get(i - 12));
+                }
+                catch (Exception e){
+                    currentTile.setUp(null);
+                }
         }
     }
 
