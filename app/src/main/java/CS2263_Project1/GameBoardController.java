@@ -203,7 +203,6 @@ public class GameBoardController {
         updatePlayerTiles();
 
         log.info("placeTile method returned: " + t.nullCheckedToString());
-
         return t;
     }
 

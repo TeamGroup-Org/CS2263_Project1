@@ -1,5 +1,7 @@
 package CS2263_Project1;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public class Board {
     //tileArray stores the actual Tile objects and their position related to each other.
     public ArrayList<Tile> tileArray = new ArrayList<>();
 
+    @Getter
+    @Setter
     private ArrayList<Corporation> corporationTray = new ArrayList<>();
 
     /**
@@ -68,11 +72,11 @@ public class Board {
 
                 boardArray.add(tileCoordLetter + String.valueOf(tileCoordNum));
             }
+        }
 
-            for (String tileId : boardArray) {
-                Tile tile = new Tile(tileId, false, null, null, null, null, null, null);
-                tileArray.add(tile);
-            }
+        for (int i = 0; i < boardArray.size(); i++) {
+            Tile tile = new Tile(boardArray.get(i), false, null, null, null, null, null, null);
+            tileArray.add(i, tile);
         }
     }
 
@@ -113,13 +117,14 @@ public class Board {
                 catch (Exception e) {
                     currentTile.setDown(null);
                 }
-
+            // If not out of bounds, setUp
                 try {
                     currentTile.setUp(tileArray.get(i - 12));
                 }
                 catch (Exception e){
                     currentTile.setUp(null);
                 }
+            // log.info("Created tile: " + currentTile.nullCheckedToString());
         }
     }
 
