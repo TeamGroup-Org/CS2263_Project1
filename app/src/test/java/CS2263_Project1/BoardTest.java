@@ -3,6 +3,9 @@ package CS2263_Project1;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+
+import java.util.ArrayList;
+
 import static org.mockito.Mockito.*;
 
 
@@ -57,6 +60,27 @@ public class BoardTest {
     @Test
     public void testGetGameCanEnd(){
         assertFalse(board.getGameCanEnd());
+    }
+
+    /**
+     * test to make sure generatePlayerHand method does not make null ArrayLists
+     */
+    @Test
+    public void testGeneratePlayerHand(){
+        ArrayList<Tile> testArray = board.generatePlayerHand();
+        assertNotNull(testArray);
+
+    }
+
+    /**
+     * tests to make sure drawTileToHand doesn't return null Arraylists
+     */
+    @Test
+    public void testDrawTileToHand(){
+        ArrayList<Tile> testArray = board.drawTileToHand();
+        Tile tile = testArray.remove(0);
+        assertNotNull(tile);
+
     }
 
 

@@ -41,16 +41,46 @@ public class TileTrayTest {
         t.setTray(list2);
         assertEquals(list2, t.getTray());
     }
+
     /**
-     * test for isEmpty method
+     * test to make sure shuffleTray method doesn't destroy the tiletray
      */
-//    @Test
-//    public void testIsEmpty(){
-//        ArrayList<Tile> list = new ArrayList<>();
-//        Tile tile = new Tile("A1", false, null, null, null, null, null, null);
-//        list.add(tile);
-//        TileTray t = new TileTray(list);
-//        assertTrue(t.isEmpty());
-//    }
+    @Test
+    public void testShuffleTray(){
+        Tile tile = new Tile("A1", false, null, null, null, null, null, null);
+        Tile tile2 = new Tile("A3", false, null, null, null, null, null, null);
+        Tile tile3 = new Tile("B6", false, null, null, null, null, null, null);
+        ArrayList<Tile> list = new ArrayList<>();
+        list.add(tile);
+        list.add(tile2);
+        list.add(tile3);
+        TileTray t = new TileTray(list);
+        t.shuffleTray();
+        assertNotNull(t.getTray());
+    }
+
+    /**
+     * test for askForTile method
+     * @return
+     */
+    @Test
+    public void testAskForTile(){
+        Tile tile = new Tile("A1", false, null, null, null, null, null, null);
+        Tile tile2 = new Tile("A3", false, null, null, null, null, null, null);
+        Tile tile3 = new Tile("B6", false, null, null, null, null, null, null);
+        ArrayList<Tile> list = new ArrayList<>();
+        list.add(tile);
+        list.add(tile2);
+        list.add(tile3);
+        TileTray t = new TileTray(list);
+        Tile test = t.askForTile();
+        assertEquals(tile, test);
+        t.askForTile();
+        Tile test2 = t.askForTile();
+        assertEquals(tile3,test2 );
+        t.askForTile();
+
+        assertEquals("XX", t.askForTile().getId());
+    }
 
 }
