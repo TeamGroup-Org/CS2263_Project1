@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * @author David Hellwig
+ * @author Ekow Barlow
  */
 public class DataManager {
 

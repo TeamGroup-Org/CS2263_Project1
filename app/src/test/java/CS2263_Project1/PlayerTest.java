@@ -111,4 +111,48 @@ public class PlayerTest {
         assertEquals(2,c.getSize());
         assertTrue(c.getInUse());
     }
+
+    /**
+     * test for getHand method to make sure it is not null
+     */
+    @Test
+    public void testGetHand(){
+
+        assertNotNull(player.getHand());
+    }
+
+    /**
+     * test for getTileFromHand method
+     */
+    @Test
+    public void testGetTileFromHand(){
+        Tile t = player.getTileFromHand(3);
+
+        assertNull(t);
+
+        Tile testTile = player.getTileFromHand(0);
+
+        assertNotNull(testTile);
+    }
+
+    /**
+     * test for the set hand method
+     */
+    @Test
+    public void testSetHand(){
+        Tile t1 = new Tile("A5", false, null, null, null, null, null, null);
+
+        Tile t2 = new Tile("A4", false, null, null, null, null, null, null);
+        ArrayList<Tile> test = new ArrayList<>();
+
+        test.add(t1);
+
+        test.add(t2);
+
+        player.setHand(test);
+
+        assertEquals(test, player.getHand());
+
+
+    }
 }

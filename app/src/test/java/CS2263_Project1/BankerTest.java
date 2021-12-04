@@ -112,4 +112,16 @@ public class BankerTest {
         assertEquals(player, banker.getWinner(player, player2));
     }
 
+    /**
+     * test to make sure a placeholder player is the winner if no human player won
+     */
+    @Test
+    public void testNoWinner(){
+        Player testPlayer = player2;
+        Player p  = banker.getWinner(testPlayer,player2);
+
+        assertEquals(0, p.getWallet());
+
+    }
+
 }
