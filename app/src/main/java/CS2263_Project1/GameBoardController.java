@@ -26,6 +26,7 @@ public class GameBoardController {
 
     static Banker banker = new Banker();
     static Board gameBoard = new Board();
+    private ArrayList<Tile> spentTileStorage = new ArrayList<>();
     private int playerTurn = 1;
     private static final Player player1 = new Player(1,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
     private static final Player player2 = new Player(2,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
@@ -59,11 +60,6 @@ public class GameBoardController {
     public void updateBoard() {
         updateMoney();
 
-        for (int i = 0; i < gameBoard.tileArray.size(); i++) {
-            if (gameBoard.tileArray.get(i).isSpent) {
-                //CHANGE BACKGROUND COLOR TO Color.color(47,79,79)
-            }
-        }
     }
 
     /**
@@ -231,8 +227,13 @@ public class GameBoardController {
                     break;
         }
 
+        log.info(t.nullCheckedToString() + " has been lost forever");
         updatePlayerTiles();
         return t;
+    }
+
+    public void mergeCheck(Tile t) {
+        // will check a freshly played tile for possible merges and evaluate results
     }
 
     /**
