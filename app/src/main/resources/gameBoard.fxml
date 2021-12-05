@@ -112,7 +112,7 @@
             </Pane>
 
             <!-- Player Hand -->
-            <VBox layoutX="30.0" layoutY="316.0" prefHeight="97.0" prefWidth="410.0">
+            <VBox layoutX="30.0" layoutY="316.0" prefHeight="63.0" prefWidth="410.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tiles in Hand:" />
                   <HBox fx:id="TileHolder" prefHeight="46.0" prefWidth="278.0">
@@ -130,6 +130,27 @@
                   </HBox>
                </children>
             </VBox>
+
+            <!-- System Pane -->
+            <Pane fx:id="systemPane" layoutX="30.0" layoutY="377.0" prefHeight="80.0" prefWidth="386.0">
+               <children>
+
+                  <!-- Info Label (For displaying relevant player information) -->
+                  <Label fx:id="infoLabel" layoutY="7.0" prefHeight="37.0" prefWidth="392.0" text="Info Label" textFill="#3aba3e">
+                     <font>
+                        <Font name="Arial" size="19.0" />
+                     </font>
+                  </Label>
+
+                  <!-- Alert Label (For telling the player they've tried to do something illegal -->
+                  <Label fx:id="alertLabel" layoutY="45.0" prefHeight="37.0" prefWidth="392.0" text="Alert Label" textFill="#bc3a3a">
+                     <font>
+                        <Font name="Arial" size="19.0" />
+                     </font>
+                  </Label>
+
+               </children>
+            </Pane>
 
             <!-- Stocks Pane -->
             <Pane layoutX="469.0" layoutY="128.0" prefHeight="173.0" prefWidth="180.0">
@@ -255,14 +276,14 @@
             </Pane>
 
             <!-- End Game -->
-            <Button fx:id="endGame" layoutX="440.0" layoutY="479.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="95.0" text="End Game">
+            <Button fx:id="endGame" layoutX="422.0" layoutY="478.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="95.0" text="End Game">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
             </Button>
 
             <!-- End Turn -->
-            <Button layoutX="30.0" layoutY="479.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="82.0" text="End Turn">
+            <Button layoutX="30.0" layoutY="478.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="82.0" text="End Turn">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>

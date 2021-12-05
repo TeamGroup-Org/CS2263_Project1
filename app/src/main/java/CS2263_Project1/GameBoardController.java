@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.extern.log4j.Log4j2;
 
@@ -26,8 +27,12 @@ public class GameBoardController {
 
     static Banker banker = new Banker();
     static Board gameBoard = new Board();
+
     private ArrayList<Tile> spentTileStorage = new ArrayList<>();
+
     private int playerTurn = 1;
+    private int playTileLimit = 1;
+
     private static final Player player1 = new Player(1,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
     private static final Player player2 = new Player(2,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
 
@@ -39,6 +44,9 @@ public class GameBoardController {
     public GridPane gridPane;
     public Label player1Money;
     public Label player2Money;
+    public Pane systemPane;
+    public Label infoLabel;
+    public Label alertLabel;
     public Button endGame;
 
     //These buttons are meant to be the Player's hand
@@ -50,6 +58,7 @@ public class GameBoardController {
      */
     @FXML public void initialize() {
         initGridPane();
+        clearSystemPane();
         updateMoney();
         updatePlayerTiles();
     }
@@ -211,12 +220,15 @@ public class GameBoardController {
         int i = -1;
         log.info("placeTile method called on: " + b + ", containing: " + t.nullCheckedToString());
 
-        switch (playerTurn) {
-            case 1: player1.playTile(gameBoard, t);
+        if (playTileLimit > 0) {
+
+            switch (playerTurn) {
+                case 1:
+                    player1.playTile(gameBoard, t);
                     t.setOwner(player1);
 
                     for (Node n : TileHolder.getChildren()) {
-                        if (n instanceof Button ) {
+                        if (n instanceof Button) {
                             i++;
                             if (((Button) n).getText() == t.id) {
                                 buttonIndex = i;
@@ -228,11 +240,12 @@ public class GameBoardController {
                     drawTile(player1);
 
                     break;
-            case 2: player2.playTile(gameBoard, t);
+                case 2:
+                    player2.playTile(gameBoard, t);
                     t.setOwner(player2);
 
                     for (Node n : TileHolder.getChildren()) {
-                        if (n instanceof Button ) {
+                        if (n instanceof Button) {
                             i++;
                             if (((Button) n).getText() == t.id) {
                                 buttonIndex = i;
@@ -244,16 +257,23 @@ public class GameBoardController {
                     drawTile(player2);
 
                     break;
-            default:
+                default:
                     break;
+            }
+
+            updatePlayerTiles();
+
+            spentTileStorage.add(spentTile);
+            updateBoard();
+
+            infoLabel.setText("Played tile " + spentTile.id);
+
+            playTileLimit--;
         }
-
-        log.info(t.nullCheckedToString() + " has been lost forever");
-
-        updatePlayerTiles();
-
-        spentTileStorage.add(spentTile);
-        updateBoard();
+        else {
+            alertLabel.setText("You can only play 1 tile per turn!!");
+            log.info("You can only play 1 tile per turn!!");
+        }
     }
 
     public void mergeCheck(Tile t) {
@@ -277,12 +297,22 @@ public class GameBoardController {
      * and editing text on the board.
      */
     public void endTurn() {
-        //Player turn moves forward
+        // Player turn moves forward
         nextTurn();
 
-        // Updates
+        // Updates and reset tile limit
+        playTileLimit = 1;
+        clearSystemPane();
         updatePlayerTiles();
         updateBoard();
+    }
+
+    public void clearSystemPane() {
+        for (Node n : systemPane.getChildren()) {
+            if (n instanceof Label) {
+                ((Label) n).setText("");
+            }
+        }
     }
 
     /**
