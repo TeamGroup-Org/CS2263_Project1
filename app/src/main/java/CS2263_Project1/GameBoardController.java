@@ -72,6 +72,8 @@ public class GameBoardController {
      * @param p the player drawing the tile
      */
     public void drawTile(Player p) {
+        gameBoard.shuffleTray();
+
         ArrayList<Tile> playerHand = p.getHand();
         Tile drawnTile = gameBoard.askForTile();
 
@@ -190,10 +192,46 @@ public class GameBoardController {
 
         Button b = (Button) e.getTarget();
         Tile t = (Tile) b.getUserData();
+        int buttonIndex = 0;
+        int i = -1;
         log.info("placeTile method called on: " + b + ", containing: " + t.nullCheckedToString());
 
-        updatePlayerTiles();
+        switch (playerTurn) {
+            case 1: player1.playTile(gameBoard, t);
+                    t.setOwner(player1);
 
+                    for (Node n : TileHolder.getChildren()) {
+                        if (n instanceof Button ) {
+                            i++;
+                            if (((Button) n).getText() == t.id) {
+                                buttonIndex = i;
+                            }
+                        }
+                    }
+
+                    player1.getTileFromHand(buttonIndex);
+                    drawTile(player1);
+
+                    break;
+            case 2: player2.playTile(gameBoard, t);
+                    t.setOwner(player2);
+
+                    for (Node n : TileHolder.getChildren()) {
+                        if (n instanceof Button ) {
+                            i++;
+                            if (((Button) n).getText() == t.id) {
+                                buttonIndex = i;
+                            }
+                        }
+                    }
+
+                    player2.getTileFromHand(buttonIndex);
+                    drawTile(player2);
+
+                    break;
+        }
+
+        updatePlayerTiles();
         return t;
     }
 
