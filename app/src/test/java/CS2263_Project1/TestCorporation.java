@@ -131,16 +131,16 @@ public class TestCorporation {
         assertEquals(2000,c.getMajorityBonus());
 
     }
-    /**
-     * Test for found method
-     */
-    public void testFound(){
-        c.setSize(1);
-        c.found();
-        assertTrue(c.getInUse());
-        assertEquals(2, c.getSize());
-
-    }
+//    /**
+//     * Test for found method
+//     */
+//    public void testFound(){
+//        c.setSize(1);
+//        c.found();
+//        assertTrue(c.getInUse());
+//        assertEquals(2, c.getSize());
+//
+//    }
     /**
      * Test for absorbed method
      */
@@ -150,7 +150,5 @@ public class TestCorporation {
         c.absorbed();
         assertFalse(c.getInUse());
         assertEquals(0,c.getSize());
-
-
     }
 }

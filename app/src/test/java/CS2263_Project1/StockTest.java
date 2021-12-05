@@ -33,7 +33,7 @@ public class StockTest {
     @Test
     public void testSetValue(){
         Stock stock = new Stock(0, "test");
-        stock.setPrice(1);
+        stock.setValue(1);
         assertEquals(1,stock.getValue());
     }
 }

@@ -101,16 +101,16 @@ public class PlayerTest {
         assertEquals(0,player.getPortfolio().size());
     }
 
-    /**
-     * test for found method
-     */
-    @Test
-    public void testFound(){
-        Corporation c = new Corporation(1,"test",false,false,0);
-        player.foundCorporation(c);
-        assertEquals(2,c.getSize());
-        assertTrue(c.getInUse());
-    }
+//    /**
+//     * test for found method
+//     */
+//    @Test
+//    public void testFound(){
+//        Corporation c = new Corporation(1,"test",false,false,0);
+//        player.foundCorporation(c);
+//        assertEquals(2,c.getSize());
+//        assertTrue(c.getInUse());
+//    }
 
     /**
      * test for getHand method to make sure it is not null

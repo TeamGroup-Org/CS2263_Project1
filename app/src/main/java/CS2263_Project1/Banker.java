@@ -29,8 +29,8 @@ public class Banker {
      * @param stock
      * @param value
      */
-    public void setStockPrice(Stock stock,int value){
-        stock.setPrice(value);
+    public void setStockPrice(Stock stock, int value){
+        stock.setValue(value);
     }
 
     /**

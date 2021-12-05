@@ -76,18 +76,11 @@ public class Player {
 
     //  TRADESTOCK() AND SELLSTOCK() WILL BE MERGED
     public void tradeStock(Stock stock, Corporation corporation) {
-        stock.setPrice(corporation.getPrice());
-    }
-    public void sellStock(int i) {
-        Stock stock = portfolio.remove(i);
+        stock.setValue(corporation.getPrice());
     }
 
-    /**
-     * THIS LOOKS LIKE IT DOES SOMETHING BUT IT DOESN'T DO THE RIGHT THING RIGHT NOW
-     * @param corporation
-     */
-    public void foundCorporation(Corporation corporation) {
-        corporation.found();
+    public void sellStock(int i) {
+        Stock stock = portfolio.remove(i);
     }
 
     /**

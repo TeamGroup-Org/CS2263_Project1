@@ -38,7 +38,6 @@ public class GameBoardController {
     private static final Player player1 = new Player(1,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
     private static final Player player2 = new Player(2,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
 
-
     @FXML
     public Label turnTracker;
     public HBox TileHolder;
@@ -50,6 +49,20 @@ public class GameBoardController {
     public Label infoLabel;
     public Label alertLabel;
     public Button endGame;
+    public Label worldwidePlayer1;
+    public Label sacksonPlayer1;
+    public Label festivalPlayer1;
+    public Label imperialPlayer1;
+    public Label americanPlayer1;
+    public Label continentalPlayer1;
+    public Label towerPlayer1;
+    public Label worldwidePlayer2;
+    public Label sacksonPlayer2;
+    public Label festivalPlayer2;
+    public Label imperialPlayer2;
+    public Label americanPlayer2;
+    public Label continentalPlayer2;
+    public Label towerPlayer2;
 
     //These buttons are meant to be the Player's hand
     public Button tile1; public Button tile2; public Button tile3;
@@ -432,6 +445,7 @@ public class GameBoardController {
         Tile down = new Tile();
 
         ArrayList<Tile> partnersList = new ArrayList<>();
+        int numPartners = 0;
 
         // Null checks
         if (notNull(t.getLeft())) {left = t.getLeft();}
@@ -443,6 +457,7 @@ public class GameBoardController {
             String name = tile.getId();
             if (name == left.getId() || name == right.getId() || name == up.getId() || name == down.getId()) {
                 partnersList.add(tile);
+                numPartners++;
             }
         }
 
@@ -462,8 +477,20 @@ public class GameBoardController {
             }
 
             t.setMemberOf(playerChoice);
-            playerChoice.found();
+
+            int founderStockValue = playerChoice.getPrice();
+            int startingSize = numPartners + 1;
+
+            switch (playerTurn) {
+                case 1: playerChoice.found(player1, startingSize, founderStockValue, playerChoice.getName());
+                    break;
+                case 2: playerChoice.found(player2, startingSize, founderStockValue, playerChoice.getName());
+                    break;
+                default: break;
+            }
         }
+
+        updateStockPane();
     }
 
     /**
@@ -541,6 +568,87 @@ public class GameBoardController {
                 ((Label) n).setText("");
             }
         }
+    }
+
+    /**
+     * Makes the stock pane reflect current player portfolios
+     */
+    public void updateStockPane() {
+        String name;
+
+        // Just a truly upsetting amount of int variables initialized at 0 for tracking stock totals
+        int wP1 = 0;
+        int sP1 = 0;
+        int fP1 = 0;
+        int iP1 = 0;
+        int aP1 = 0;
+        int cP1 = 0;
+        int tP1 = 0;
+        int wP2 = 0;
+        int sP2 = 0;
+        int fP2 = 0;
+        int iP2 = 0;
+        int aP2 = 0;
+        int cP2 = 0;
+        int tP2 = 0;
+
+        for (Stock s : player1.getPortfolio()) {
+            name = s.getCompany();
+            switch (name) {
+                case "Worldwide": wP1++;
+                    break;
+                case "Sackson": sP1++;
+                    break;
+                case "Festival": fP1++;
+                    break;
+                case "Imperial": iP1++;
+                    break;
+                case "American": aP1++;
+                    break;
+                case "Continental": cP1++;
+                    break;
+                case "Tower": tP1++;
+                    break;
+                default: break;
+            }
+        }
+
+        for (Stock s : player2.getPortfolio()) {
+            name = s.getCompany();
+            switch (name) {
+                case "Worldwide": wP2++;
+                    break;
+                case "Sackson": sP2++;
+                    break;
+                case "Festival": fP2++;
+                    break;
+                case "Imperial": iP2++;
+                    break;
+                case "American": aP2++;
+                    break;
+                case "Continental": cP2++;
+                    break;
+                case "Tower": tP2++;
+                    break;
+                default: break;
+            }
+        }
+
+        // Updates the UI labels
+        worldwidePlayer1.setText(String.valueOf(wP1));
+        worldwidePlayer2.setText(String.valueOf(wP2));
+        sacksonPlayer1.setText(String.valueOf(sP1));
+        sacksonPlayer2.setText(String.valueOf(sP2));
+        festivalPlayer1.setText(String.valueOf(fP1));
+        festivalPlayer1.setText(String.valueOf(fP2));
+        imperialPlayer1.setText(String.valueOf(iP1));
+        imperialPlayer2.setText(String.valueOf(iP2));
+        americanPlayer1.setText(String.valueOf(aP1));
+        americanPlayer2.setText(String.valueOf(aP2));
+        continentalPlayer1.setText(String.valueOf(cP1));
+        continentalPlayer2.setText(String.valueOf(cP2));
+        towerPlayer1.setText(String.valueOf(tP1));
+        towerPlayer2.setText(String.valueOf(tP2));
     }
 
     /**

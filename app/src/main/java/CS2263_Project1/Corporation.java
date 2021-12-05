@@ -93,9 +93,13 @@ public class Corporation {
     /**
      * Sets corporation's values to default values for a corporation which has just been played to the board.
      */
-    public void found() {
-        size = 2;
+    public void found(Player p, int startingSize, int value, String name) {
+        Stock founderStock = new Stock(value, name);
+
+        size = startingSize;
         inUse = true;
+
+        p.getPortfolio().add(founderStock);
     }
 
     /**
@@ -141,7 +145,6 @@ public class Corporation {
         }
 
         return price;
-
     }
 
     /**
