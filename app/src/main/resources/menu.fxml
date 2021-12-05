@@ -23,7 +23,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="loadGameButton" layoutX="305.0" layoutY="231.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="42.0" prefWidth="110.0" text="Load Game">
+      <Button fx:id="loadGameButton" layoutX="305.0" layoutY="231.0" mnemonicParsing="false" onAction="#loadGame" prefHeight="42.0" prefWidth="110.0" text="Load Game">
          <font>
             <Font name="Copperplate" size="13.0" />
          </font>

@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * App class launches the Application UI
@@ -21,6 +23,9 @@ import javafx.stage.Stage;
 public class App extends Application {
     public static Stage stage = new Stage();
     public static Stage stage1 = new Stage();
+
+    @Setter
+    static public boolean loadFlag = false;
 
     public App() {
     }

@@ -3,6 +3,7 @@ package CS2263_Project1;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.FileNotFoundException;
 
@@ -12,6 +13,7 @@ import java.io.FileNotFoundException;
  * @author Coby Garner
  */
 
+@Log4j2
 public class MenuController {
 
     @FXML
@@ -43,10 +45,11 @@ public class MenuController {
      */
 
     public void loadGame(){
+        App.stage1.show();
+        App.stage.close();
 
-
-
-
+        App.setLoadFlag(true);
+        log.debug("Load Game Flag: " + App.loadFlag);
     }
 }
 
