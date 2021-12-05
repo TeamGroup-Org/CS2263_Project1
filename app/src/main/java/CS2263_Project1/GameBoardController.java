@@ -192,61 +192,51 @@ public class GameBoardController {
      * Updates the colors of the most recent tile played
      */
     public void updateBoard() {
-        int mostRecentIndex = spentTileStorage.size() - 1;
-        Tile mostRecentTile = spentTileStorage.get(mostRecentIndex);
 
-        Node colorTargetLabel = new Node() {
-            @Override
-            public boolean hasProperties() {
-                return super.hasProperties();
-            }
-        };
+        for (int i = 0; i < spentTileStorage.size(); i++) {
+            for (Node n : gridPane.getChildren()) {
+                if (n instanceof Label) {
 
-        for (Node n : gridPane.getChildren()) {
-            if (n instanceof Label) {
-                if (((Label) n).getText() == mostRecentTile.id) {
-                    colorTargetLabel = n;
+                    // Spent but unincorporated tiles
+                    if (((Label) n).getText() == spentTileStorage.get(i).id && spentTileStorage.get(i).getMemberOf() == null) {
+                        n.setStyle("-fx-background-color: #808080;");
+                    }
+
+                    // Incorporated tiles
+                    else if (((Label) n).getText() == spentTileStorage.get(i).id && spentTileStorage.get(i).getMemberOf() != null) {
+                        int corpId = spentTileStorage.get(i).getMemberOf().getId();
+
+                        switch (corpId) {
+                            case 1: n.setStyle("-fx-background-color: #639FAB; -fx-text-fill: #FFFFFF;");
+                                break;
+                            case 2: n.setStyle("-fx-background-color: #81B29A;");
+                                break;
+                            case 3: n.setStyle("-fx-background-color: #3D405B; -fx-text-fill: #FFFFFF;");
+                                break;
+                            case 4: n.setStyle("-fx-background-color: #ECCE8E;");
+                                break;
+                            case 5: n.setStyle("-fx-background-color: #A99AC1;");
+                                break;
+                            case 6: n.setStyle("-fx-background-color: #FFBA49;");
+                                break;
+                            case 7: n.setStyle("-fx-background-color: #AD343E; -fx-text-fill: #FFFFFF;");
+                                break;
+                            default: break;
+                        }
+                    }
                 }
-            }
-        }
-
-        // Update spent tile background color if isSpent == true and owner == null
-        if (mostRecentTile.isSpent && mostRecentTile.getMemberOf() == null) {
-            colorTargetLabel.setStyle("-fx-background-color: #808080;");
-        }
-
-        // Otherwise assign it's corporate colors
-        else if (mostRecentTile.getMemberOf() != null) {
-            int corpId = mostRecentTile.getMemberOf().getId();
-
-            switch (corpId) {
-                case 1: colorTargetLabel.setStyle("-fx-background-color: #639FAB; -fx-text-fill: #FFFFFF;");
-                    break;
-                case 2: colorTargetLabel.setStyle("-fx-background-color: #81B29A;");
-                    break;
-                case 3: colorTargetLabel.setStyle("-fx-background-color: #3D405B; -fx-text-fill: #FFFFFF;");
-                    break;
-                case 4: colorTargetLabel.setStyle("-fx-background-color: #ECCE8E;");
-                    break;
-                case 5: colorTargetLabel.setStyle("-fx-background-color: #A99AC1;");
-                    break;
-                case 6: colorTargetLabel.setStyle("-fx-background-color: #FFBA49;");
-                    break;
-                case 7: colorTargetLabel.setStyle("-fx-background-color: #AD343E; -fx-text-fill: #FFFFFF;");
-                    break;
-                default: break;
             }
         }
     }
 
     /**
-     * Ensures that all tiles which are on in spentTileStorage recieve a spent background color
+     * Ensures that all tiles which are on in spentTileStorage and unincorporated recieve a spent background color
      */
     public void updateSpentOnly() {
         for (int i = 0; i < spentTileStorage.size(); i++) {
             for (Node n : gridPane.getChildren()) {
                 if (n instanceof Label) {
-                    if (((Label) n).getText() == spentTileStorage.get(i).id) {
+                    if (((Label) n).getText() == spentTileStorage.get(i).id && spentTileStorage.get(i).getMemberOf() == null) {
                         n.setStyle("-fx-background-color: #808080;");
                     }
                 }
@@ -403,6 +393,7 @@ public class GameBoardController {
             updatePlayerTiles();
 
             spentTileStorage.add(spentTile);
+            incorporationCheck(spentTile);
             updateBoard();
 
             infoLabel.setText("Played tile " + spentTile.id);
@@ -430,12 +421,49 @@ public class GameBoardController {
 
     /**
      * Checks a played tile for possible incorporation (a tile is placed in a way that it is not absorbed into a corporation
-     * next to at least one other unincorporated tile.
+     * next to at least one other unincorporated tile.)
      *
      * @param t the tile being checked for incorporation
      */
     public void incorporationCheck(Tile t) {
-        // will create a little pop out window for the player to select a corporation
+        Tile left = new Tile();
+        Tile right = new Tile();
+        Tile up = new Tile();
+        Tile down = new Tile();
+
+        ArrayList<Tile> partnersList = new ArrayList<>();
+
+        // Null checks
+        if (notNull(t.getLeft())) {left = t.getLeft();}
+        if (notNull(t.getRight())) {right = t.getRight();}
+        if (notNull(t.getUp())) {up = t.getUp();}
+        if (notNull(t.getDown())) {down = t.getDown();}
+
+        for (Tile tile : spentTileStorage) {
+            String name = tile.getId();
+            if (name == left.getId() || name == right.getId() || name == up.getId() || name == down.getId()) {
+                partnersList.add(tile);
+            }
+        }
+
+        if (partnersList.size() > 0) {
+            Corporation playerChoice = incorporateWindow();
+
+            for (Tile p : partnersList) {
+                p.setMemberOf(playerChoice);
+
+                // Update info in spent tile storage
+                for (int i = 0; i < spentTileStorage.size(); i++) {
+                    if (spentTileStorage.get(i).getId() == p.getId()) {
+                        spentTileStorage.remove(i);
+                        spentTileStorage.add(p);
+                    }
+                }
+            }
+
+            t.setMemberOf(playerChoice);
+            playerChoice.found();
+        }
     }
 
     /**
@@ -472,6 +500,7 @@ public class GameBoardController {
             alertLabel.setText("All corporations founded! Better luck next time.");
             selectedCorp = dummy;
         } finally {
+            log.debug("Corporation " + selectedCorp.toString() + " returned");
             return selectedCorp;
         }
     }
