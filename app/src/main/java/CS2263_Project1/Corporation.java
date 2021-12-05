@@ -34,6 +34,7 @@ public class Corporation {
     }
 
     //Getters and Setters
+    public int getId() {return id;}
     public String getName() {return name;}
     public boolean getInUse() {return inUse;}
     public boolean getIsSafe() {return isSafe;}

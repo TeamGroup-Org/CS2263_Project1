@@ -8,12 +8,14 @@ import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.extern.log4j.Log4j2;
+import org.checkerframework.checker.units.qual.C;
 
 /**
  * Game Board Controller Class contains all methods used as part of the game UI stage
@@ -87,6 +89,7 @@ public class GameBoardController {
             playerTurn = 1;
             infoLabel.setText("Player 1 goes first with tile " + p1Closest.id);
         }
+
         else if (p1Closest.id.charAt(0) == p2Closest.id.charAt(0)) {
             try {
                 p1String = String.valueOf(p1Closest.id.charAt(1)) + String.valueOf(p1Closest.id.charAt(2));
@@ -189,7 +192,9 @@ public class GameBoardController {
      * Updates the colors of the most recent tile played
      */
     public void updateBoard() {
-        int mostRecentTile = spentTileStorage.size() - 1;
+        int mostRecentIndex = spentTileStorage.size() - 1;
+        Tile mostRecentTile = spentTileStorage.get(mostRecentIndex);
+
         Node colorTargetLabel = new Node() {
             @Override
             public boolean hasProperties() {
@@ -199,14 +204,38 @@ public class GameBoardController {
 
         for (Node n : gridPane.getChildren()) {
             if (n instanceof Label) {
-                if (((Label) n).getText() == spentTileStorage.get(mostRecentTile).id) {
+                if (((Label) n).getText() == mostRecentTile.id) {
                     colorTargetLabel = n;
                 }
             }
         }
 
-        if (spentTileStorage.get(mostRecentTile).isSpent) {
+        // Update spent tile background color if isSpent == true and owner == null
+        if (mostRecentTile.isSpent && mostRecentTile.getMemberOf() == null) {
             colorTargetLabel.setStyle("-fx-background-color: #808080;");
+        }
+
+        // Otherwise assign it's corporate colors
+        else if (mostRecentTile.getMemberOf() != null) {
+            int corpId = mostRecentTile.getMemberOf().getId();
+
+            switch (corpId) {
+                case 1: colorTargetLabel.setStyle("-fx-background-color: #639FAB; -fx-text-fill: #FFFFFF;");
+                    break;
+                case 2: colorTargetLabel.setStyle("-fx-background-color: #81B29A;");
+                    break;
+                case 3: colorTargetLabel.setStyle("-fx-background-color: #3D405B; -fx-text-fill: #FFFFFF;");
+                    break;
+                case 4: colorTargetLabel.setStyle("-fx-background-color: #ECCE8E;");
+                    break;
+                case 5: colorTargetLabel.setStyle("-fx-background-color: #A99AC1;");
+                    break;
+                case 6: colorTargetLabel.setStyle("-fx-background-color: #FFBA49;");
+                    break;
+                case 7: colorTargetLabel.setStyle("-fx-background-color: #AD343E; -fx-text-fill: #FFFFFF;");
+                    break;
+                default: break;
+            }
         }
     }
 
@@ -263,7 +292,7 @@ public class GameBoardController {
     }
 
     /**
-     *
+     * Updates the UI text with current money amount
      */
     public void updateMoney() {
         player1Money.setText(String.valueOf(player1.getWallet()));
@@ -323,7 +352,6 @@ public class GameBoardController {
     }
 
     public void placeTile(ActionEvent e){
-
         Button b = (Button) e.getTarget();
         Tile t = (Tile) b.getUserData();
         Tile spentTile = new Tile();
@@ -387,8 +415,37 @@ public class GameBoardController {
         }
     }
 
+    /**
+     * Checks a played tile for possible merges and updates owner field. Merges occur when a tile is placed in a way
+     * that fills a gap in between two or more corporations, with all tiles from smaller corporation(s) becoming
+     * absorbed into the largest one.
+     *
+     * Rules on multiple mergers found here: https://www.ultraboardgames.com/acquire/game-rules.php
+     *
+     * @param t the tile being checked for merges
+     */
     public void mergeCheck(Tile t) {
         // will check a freshly played tile for possible merges and evaluate results
+    }
+
+    /**
+     * Checks a played tile for possible incorporation (a tile is placed in a way that it is not absorbed into a corporation
+     * next to at least one other unincorporated tile.
+     *
+     * @param t the tile being checked for incorporation
+     */
+    public void incorporationCheck(Tile t) {
+        // will create a little pop out window for the player to select a corporation
+    }
+
+    /**
+     * incorporateWindow creates the choice dialog that players use to choose their corporation
+     *
+     * @return Corporation that player chooses to create
+     */
+    public void incorporateWindow() {
+        ChoiceDialog choiceDialog = new ChoiceDialog();
+        choiceDialog.setTitle("Incorporate Your Tile");
     }
 
     /**
@@ -441,11 +498,19 @@ public class GameBoardController {
     }
 
     /**
+     * A quick null status check for tile objects to cut down on bulk in merge and incorporation methods
+     *
+     * @param t tile being checked for existence
+     * @return true if not null, false otherwise
+     */
+    private boolean notNull (Tile t) {
+        return t != null;
+    }
+
+    /**
      * Exit game
      */
     public void quitGame() {
         App.stage1.close();
     }
 }
-
-

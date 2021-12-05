@@ -31,11 +31,13 @@ public class App extends Application {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle(" Acquire");
         stage.show();
 
         FXMLLoader loader1 = new FXMLLoader((getClass().getResource("/gameBoard.fxml")));
         Parent root1 = loader1.load();
         Scene scene1 = new Scene(root1);
+        stage1.setTitle(" Acquire");
         stage1.setScene(scene1);
     }
 
