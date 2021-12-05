@@ -26,7 +26,6 @@ public class GameBoardController {
 
     static Banker banker = new Banker();
     static Board gameBoard = new Board();
-    private TileTray tileTray = new TileTray(new ArrayList<Tile>());
     private int playerTurn = 1;
     private static final Player player1 = new Player(1,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
     private static final Player player2 = new Player(2,4000, gameBoard.generatePlayerHand(), new ArrayList<>());
@@ -51,7 +50,7 @@ public class GameBoardController {
     @FXML public void initialize() {
         initGridPane();
         updateMoney();
-        createStartingHand();
+        updatePlayerTiles();
     }
 
     /**
@@ -68,40 +67,15 @@ public class GameBoardController {
     }
 
     /**
-     * Assigns actual Tiles to the player's hand instead of string representations
-     *
-     * BUT YOU CAN GET DUPLICATES RIGHT NOW WHICH IS BAD REALLY BAD SO LIKE OOPS I'M GONNA FIX IT THOUGH
-     */
-    public void createStartingHand() {
-        tileTray.shuffleTray();
-
-        // Player 1
-        for (int i = 0; i < 6; i++) {
-            Tile draw = tileTray.askForTile();
-            player1.getHand().add(draw);
-        }
-
-        // Player 2
-        for (int i = 0; i < 6; i++) {
-            Tile draw = tileTray.askForTile();
-            player2.getHand().add(draw);
-        }
-
-        updatePlayerTiles();
-    }
-
-    /**
-     * Places a tile into the requesting player's hand then refreshes the displayed tiles (hBox buttons in UI)
+     * Places a tile into the requesting player's hand
      *
      * @param p the player drawing the tile
      */
     public void drawTile(Player p) {
         ArrayList<Tile> playerHand = p.getHand();
-        Tile drawnTile = tileTray.askForTile();
+        Tile drawnTile = gameBoard.askForTile();
 
         playerHand.add(drawnTile);
-
-        updatePlayerTiles();
     }
 
     public void updateEndButton() {
@@ -131,13 +105,6 @@ public class GameBoardController {
     /**
      *
      */
-    public void playTile(Tile playedTile) {
-
-    }
-
-    /**
-     *
-     */
     public void updateMoney() {
         player1Money.setText(String.valueOf(player1.getWallet()));
         player2Money.setText(String.valueOf(player2.getWallet()));
@@ -150,26 +117,71 @@ public class GameBoardController {
      * Stores Actual Tiles into the buttons to be referenced later using getUserId() Method
      */
     public void updatePlayerTiles(){
-        ObservableList<Node> buttonList = TileHolder.getChildren();
 
-        if (playerTurn == 1) {
-            int i = 0;
-            for(Node n : buttonList)
-                if (n instanceof Button) {
-                    ((Button) n).setText(player1.getHand().get(i).id);
-                    n.setUserData(player1.getHand().get(i));
-                    i++;
-                }
+        switch (playerTurn) {
+            case 1: // Nightmarishly long and awful way to do what coby did with the loop
+                    // But I think the loop was causing problems in edge cases and the hardcoded one is easier to read.
+                    // I'm leaving the loop in, just commented out because I think it's nice and we can go back to it later
+                    tile1.setText(player1.getHand().get(0).id);
+                    tile1.setUserData(player1.getHand().get(0));
+
+                    tile2.setText(player1.getHand().get(1).id);
+                    tile2.setUserData(player1.getHand().get(1));
+
+                    tile3.setText(player1.getHand().get(2).id);
+                    tile3.setUserData(player1.getHand().get(2));
+
+                    tile4.setText(player1.getHand().get(3).id);
+                    tile4.setUserData(player1.getHand().get(3));
+
+                    tile5.setText(player1.getHand().get(4).id);
+                    tile5.setUserData(player1.getHand().get(4));
+
+                    tile6.setText(player1.getHand().get(5).id);
+                    tile6.setUserData(player1.getHand().get(5));
+
+                    break;
+            case 2: tile1.setText(player2.getHand().get(0).id);
+                    tile1.setUserData(player2.getHand().get(0));
+
+                    tile2.setText(player2.getHand().get(1).id);
+                    tile2.setUserData(player2.getHand().get(1));
+
+                    tile3.setText(player2.getHand().get(2).id);
+                    tile3.setUserData(player2.getHand().get(2));
+
+                    tile4.setText(player2.getHand().get(3).id);
+                    tile4.setUserData(player2.getHand().get(3));
+
+                    tile5.setText(player2.getHand().get(4).id);
+                    tile5.setUserData(player2.getHand().get(4));
+
+                    tile6.setText(player2.getHand().get(5).id);
+                    tile6.setUserData(player2.getHand().get(5));
+                    break;
+            default: break;
         }
-        else if (playerTurn == 2) {
-            int i = 0;
-            for(Node n : buttonList)
-                if(n instanceof Button) {
-                    ((Button) n).setText(player2.getHand().get(i).id);
-                    n.setUserData(player2.getHand().get(i));
-                    i++;
-                }
-            }
+
+//        ObservableList<Node> buttonList = TileHolder.getChildren();
+//
+//        if (playerTurn == 1) {
+//            int i = 0;
+//            for(Node n : buttonList)
+//                if (n instanceof Button) {
+//                    ((Button) n).setText(player1.getHand().get(i).id);
+//                    n.setUserData(player1.getHand().get(i));
+//                    i++;
+//                }
+//        }
+//        else if (playerTurn == 2) {
+//            int i = 0;
+//            for(Node n : buttonList)
+//                if(n instanceof Button) {
+//                    ((Button) n).setText(player2.getHand().get(i).id);
+//                    n.setUserData(player2.getHand().get(i));
+//                    i++;
+//                }
+//            }
 
         log.info("TileHolder filled with P" + playerTurn + " hand");
     }
@@ -177,32 +189,11 @@ public class GameBoardController {
     public Tile placeTile(ActionEvent e){
 
         Button b = (Button) e.getTarget();
-        log.info("placeTile method called on: " + b);
-
-        ObservableList<Node> buttonList = TileHolder.getChildren();
         Tile t = (Tile) b.getUserData();
-        Tile tilePlayed;
-
-        switch (playerTurn) {
-            case 1:
-                for (int i = 0; i < player1.getHand().size(); i++) {
-                    if (b.getText() == player1.getHand().get(i).id) {
-                        tilePlayed = player1.getTileFromHand(i);
-                        player1.playTile(gameBoard, tilePlayed);
-                    }
-                }
-            case 2:
-                for (int i = 0; i < player2.getHand().size(); i++) {
-                    if (b.getText() == player2.getHand().get(i).id) {
-                        tilePlayed = player2.getTileFromHand(i);
-                        player2.playTile(gameBoard, tilePlayed);
-                    }
-                }
-        }
+        log.info("placeTile method called on: " + b + ", containing: " + t.nullCheckedToString());
 
         updatePlayerTiles();
 
-        log.info("placeTile method returned: " + t.nullCheckedToString());
         return t;
     }
 

@@ -72,16 +72,16 @@ public class BoardTest {
 
     }
 
-    /**
-     * tests to make sure drawTileToHand doesn't return null Arraylists
-     */
-    @Test
-    public void testDrawTileToHand(){
-        ArrayList<Tile> testArray = board.drawTileToHand();
-        Tile tile = testArray.remove(0);
-        assertNotNull(tile);
-
-    }
+//    /**
+//     * tests to make sure drawTileToHand doesn't return null Arraylists
+//     */
+//    @Test
+//    public void testDrawTileToHand(){
+//        ArrayList<Tile> testArray = board.drawTileToHand();
+//        Tile tile = testArray.remove(0);
+//        assertNotNull(tile);
+//
+//    }
 
 
 }

@@ -17,8 +17,6 @@ public class Tile {
     @Setter
     public String id;
 
-    @Getter
-    @Setter
     public boolean isSpent;
 
     @Getter
@@ -72,6 +70,10 @@ public class Tile {
      * Default tile constructor
      */
     public Tile(){}
+
+    public void setSpent(boolean b) {
+        isSpent = b;
+    }
 
     public String nullCheckedToString() {
 
