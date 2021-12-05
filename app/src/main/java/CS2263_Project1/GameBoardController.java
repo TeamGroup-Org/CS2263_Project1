@@ -58,8 +58,26 @@ public class GameBoardController {
      * Updates board relevant features (Money totals, tile colors, stock totals)
      */
     public void updateBoard() {
-        updateMoney();
+        int mostRecentTile = spentTileStorage.size() - 1;
+        Node colorTargetLabel = new Node() {
+            @Override
+            public boolean hasProperties() {
+                return super.hasProperties();
+            }
+        };
 
+        // Match the most recently played tile with it's complement gridPane label and get access to that Node
+        for (Node n : gridPane.getChildren()) {
+            if (n instanceof Label) {
+                if (((Label) n).getText() == spentTileStorage.get(mostRecentTile).id) {
+                    colorTargetLabel = n;
+                }
+            }
+        }
+
+        if (spentTileStorage.get(mostRecentTile).isSpent) {
+            colorTargetLabel.setStyle("-fx-background-color: #808080;");
+        }
     }
 
     /**
@@ -184,10 +202,11 @@ public class GameBoardController {
         log.info("TileHolder filled with P" + playerTurn + " hand");
     }
 
-    public Tile placeTile(ActionEvent e){
+    public void placeTile(ActionEvent e){
 
         Button b = (Button) e.getTarget();
         Tile t = (Tile) b.getUserData();
+        Tile spentTile = new Tile();
         int buttonIndex = 0;
         int i = -1;
         log.info("placeTile method called on: " + b + ", containing: " + t.nullCheckedToString());
@@ -205,7 +224,7 @@ public class GameBoardController {
                         }
                     }
 
-                    player1.getTileFromHand(buttonIndex);
+                    spentTile = player1.getTileFromHand(buttonIndex);
                     drawTile(player1);
 
                     break;
@@ -221,15 +240,20 @@ public class GameBoardController {
                         }
                     }
 
-                    player2.getTileFromHand(buttonIndex);
+                    spentTile = player2.getTileFromHand(buttonIndex);
                     drawTile(player2);
 
+                    break;
+            default:
                     break;
         }
 
         log.info(t.nullCheckedToString() + " has been lost forever");
+
         updatePlayerTiles();
-        return t;
+
+        spentTileStorage.add(spentTile);
+        updateBoard();
     }
 
     public void mergeCheck(Tile t) {
