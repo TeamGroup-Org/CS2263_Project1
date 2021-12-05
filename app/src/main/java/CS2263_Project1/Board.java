@@ -31,7 +31,7 @@ public class Board {
 
     @Getter
     @Setter
-    private ArrayList<Corporation> corporationTray = new ArrayList<>();
+    public ArrayList<Corporation> corporationTray = new ArrayList<>();
 
     /**
      * Board constructor calls init method

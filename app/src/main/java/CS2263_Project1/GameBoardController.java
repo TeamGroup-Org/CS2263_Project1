@@ -439,13 +439,41 @@ public class GameBoardController {
     }
 
     /**
-     * incorporateWindow creates the choice dialog that players use to choose their corporation
+     * incorporateWindow creates the choice dialog that players use to choose their corporation.
      *
      * @return Corporation that player chooses to create
+     * @throws IndexOutOfBoundsException if all 7 corporations are already created.
      */
-    public void incorporateWindow() {
-        ChoiceDialog choiceDialog = new ChoiceDialog();
-        choiceDialog.setTitle("Incorporate Your Tile");
+    public Corporation incorporateWindow() throws IndexOutOfBoundsException {
+        ArrayList<String> choices = new ArrayList<>();
+        Corporation dummy = new Corporation(8, "dummy", false, false, 0); // mitigates edge case where all 7 corps are on the board
+        Corporation selectedCorp = new Corporation();
+
+        try {
+            for (Corporation c : gameBoard.corporationTray) {
+                if (c.getInUse() != true)
+                    choices.add(c.getName());
+            }
+
+            ChoiceDialog choiceDialog = new ChoiceDialog(choices.get(0), choices);
+            choiceDialog.setTitle(" Incorporate Your Tile");
+            choiceDialog.setHeaderText("You have been given the opportunity to incorporate!");
+            choiceDialog.setContentText("Select a hotel chain from the possible choices for your new company.");
+            choiceDialog.showAndWait();
+
+            for (Corporation c : gameBoard.corporationTray) {
+                if (c.getName() == choiceDialog.getSelectedItem()) {
+                    selectedCorp = c;
+                }
+            }
+
+            infoLabel.setText("You have founded: " + choiceDialog.getSelectedItem());
+        } catch (IndexOutOfBoundsException e) {
+            alertLabel.setText("All corporations founded! Better luck next time.");
+            selectedCorp = dummy;
+        } finally {
+            return selectedCorp;
+        }
     }
 
     /**

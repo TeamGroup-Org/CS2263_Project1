@@ -33,6 +33,11 @@ public class Corporation {
         this.size = size;
     }
 
+    /**
+     * Empty constructor
+     */
+    public Corporation() {}
+
     //Getters and Setters
     public int getId() {return id;}
     public String getName() {return name;}
