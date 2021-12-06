@@ -283,7 +283,14 @@
             </Pane>
 
             <!-- End Game -->
-            <Button fx:id="endGame" layoutX="128.0" layoutY="478.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="95.0" text="End Game">
+            <Button fx:id="endGame" layoutX="246.0" layoutY="478.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="95.0" text="End Game">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Button>
+
+            <!-- Buy Stocks -->
+            <Button fx:id="buyStocks" layoutX="127.0" layoutY="478.0" mnemonicParsing="false" onAction="#buyStockWindow" prefHeight="31.0" prefWidth="104.0" text="Buy Stocks">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
@@ -304,7 +311,7 @@
             </Button>
 
             <!-- Save and Quit -->
-            <Button layoutX="543.0" layoutY="435.0" mnemonicParsing="false" onAction="#incorporateWindow" prefHeight="31.0" prefWidth="147.0" text="Save and Quit" textFill="#33801b">
+            <Button layoutX="543.0" layoutY="435.0" mnemonicParsing="false" onAction="#saveAndQuit" prefHeight="31.0" prefWidth="147.0" text="Save and Quit" textFill="#33801b">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>

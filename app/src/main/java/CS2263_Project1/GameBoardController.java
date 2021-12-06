@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -27,6 +26,8 @@ import org.checkerframework.checker.units.qual.C;
 @Log4j2
 public class GameBoardController {
 
+    private DataManager dataManager = new DataManager();
+    
     static Banker banker = new Banker();
     static Board gameBoard = new Board();
 
@@ -673,6 +674,19 @@ public class GameBoardController {
         }
     }
 
+    public void buyStockWindow() {
+        Dialog dialog = new Dialog();
+
+        dialog.setTitle(" NY Stock Exchange");
+        dialog.setHeaderText("So you want to buy some stocks, do ya?");
+        dialog.setContentText("That's a shame, the stock exchange is down.");
+
+        dialog.show();
+        dialog.setHeight(200);
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+    }
+
     /**
      * Makes the stock pane reflect current player portfolios. I'm not proud of this method and I would appreciate it if
      * you wouldn't look at it. Thanks.
@@ -772,8 +786,13 @@ public class GameBoardController {
      * @param t tile being checked for existence
      * @return true if not null, false otherwise
      */
-    private boolean notNull (Tile t) {
+    private boolean notNull(Tile t) {
         return t != null;
+    }
+
+    public void saveAndQuit() {
+        dataManager.Write(player1, player2, gameBoard);
+        App.stage1.close();
     }
 
     /**

@@ -30,9 +30,9 @@ public class DataManager {
     @Setter
     private Board boardData;
 
-    @Getter
-    @Setter
-    private TileTray trayData;
+//    @Getter
+//    @Setter
+//    private TileTray trayData;
 
     /**
      *
@@ -41,7 +41,7 @@ public class DataManager {
      * @param t TileTray
      *          Writes out broad range of data to three files
      */
-    public void Write(Player p1, Player p2, Board b, TileTray t){
+    public void Write(Player p1, Player p2, Board b){
         FileWriter writer = null;
         try {
             truncate(new File("player1.json"));
@@ -76,16 +76,16 @@ public class DataManager {
             e.printStackTrace();
         }
 
-        try {
-            truncate(new File("tray.json"));
-            FileWriter writerT = new FileWriter("tray.json");
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(t,writerT);
-            writerT.flush();
-            writerT.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            truncate(new File("tray.json"));
+//            FileWriter writerT = new FileWriter("tray.json");
+//            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//            gson.toJson(t,writerT);
+//            writerT.flush();
+//            writerT.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
 
@@ -100,7 +100,7 @@ public class DataManager {
 
         Type BoardInfo = new TypeToken<Board>() {}.getType();
 
-        Type trayInfo = new TypeToken<TileTray>() {}.getType();
+//        Type trayInfo = new TypeToken<TileTray>() {}.getType();
 
         JsonReader playerReader = new JsonReader(new FileReader("player1.json"));
 
@@ -108,7 +108,7 @@ public class DataManager {
 
         JsonReader boardReader = new JsonReader(new FileReader("board.json"));
 
-        JsonReader trayReader = new JsonReader(new FileReader("tray.json"));
+//        JsonReader trayReader = new JsonReader(new FileReader("tray.json"));
 
         Gson gson = new Gson();
         playerData = gson.fromJson(playerReader, playerInfo);
@@ -119,8 +119,8 @@ public class DataManager {
         Gson gsonTwo = new Gson();
         boardData = gson.fromJson(boardReader, BoardInfo);
 
-        Gson gsonThree = new Gson();
-        trayData = gson.fromJson(trayReader, trayInfo);
+//        Gson gsonThree = new Gson();
+//        trayData = gson.fromJson(trayReader, trayInfo);
 
 
 
