@@ -446,7 +446,7 @@ public class GameBoardController {
         boolean mergePerformed = false;
 
         Corporation currentLargest = new Corporation(8, "dummy", false, false, 0);
-        Corporation checkLargest = new Corporation();
+        Tile checkTile = new Tile();
         int checkLargestSize = 0;
         int currentLargestSize = 0;
 
@@ -459,12 +459,14 @@ public class GameBoardController {
         ArrayList<Tile> mergePartners = new ArrayList<>();
 
         if (left.getMemberOf() != null || right.getMemberOf() != null || up.getMemberOf() != null || down.getMemberOf() != null) {
+
             tileCanMerge = true;
+
             if (left.getMemberOf() != null) {
-                mergePartners.add(up);
+                mergePartners.add(left);
             }
             if (right.getMemberOf() != null) {
-                mergePartners.add(up);
+                mergePartners.add(right);
             }
             if (up.getMemberOf() != null) {
                 mergePartners.add(up);
@@ -472,39 +474,49 @@ public class GameBoardController {
             if (down.getMemberOf() != null) {
                 mergePartners.add(down);
             }
+
         }
 
         if (tileCanMerge) {
             // Determine largest partner
             for (int i = 0; i < mergePartners.size(); i++) {
-                checkLargest = mergePartners.get(i).getMemberOf();
-                checkLargestSize = checkLargest.getSize();
-                currentLargestSize = currentLargest.getSize();
+                checkTile = mergePartners.get(i);
 
-                if (checkLargestSize > currentLargestSize) {currentLargest = checkLargest;}
+                if (checkTile.isSpent && checkTile.getMemberOf() != null) {
+                    checkLargestSize = checkTile.getMemberOf().getSize();
+                    currentLargestSize = currentLargest.getSize();
 
-                Tile winningTile = mergePartners.remove(i);
+                    if (checkLargestSize > currentLargestSize) {
+                        currentLargest = checkTile.getMemberOf();
+                    }
+                }
             }
 
             // Merge played tile into nearby corporation
-            int corporationSize = currentLargest.getSize();
-            currentLargest.setSize(corporationSize++);
-
+            currentLargest.gainTiles(1);
             t.setMemberOf(currentLargest);
+
             mergePerformed = true;
 
-            // Clean up any corporations that need to be absorbed
+            // Clean up any corporations/tiles that need to be absorbed
             if (mergePartners.size() < 0) {
                 for (int j = 0; j < mergePartners.size(); j++) {
-                    Corporation deadCorp = mergePartners.get(j).getMemberOf();
-                    int absorbedSize = deadCorp.getSize();
-                    deadCorp.absorbed();
+                    Tile cleanUpTile = mergePartners.get(j);
+                    if (cleanUpTile.getMemberOf() == null) {
+                        cleanUpTile.setMemberOf(currentLargest);
+                        currentLargest.gainTiles(1);
+                    }
+                    else if (cleanUpTile.getMemberOf() != null){
+                        Corporation deadCorp = mergePartners.get(j).getMemberOf();
+                        int absorbedSize = deadCorp.getSize();
+                        deadCorp.absorbed();
 
-                    currentLargest.gainTiles(absorbedSize);
+                        currentLargest.gainTiles(absorbedSize);
 
-                    for (Tile s : spentTileStorage) {
-                        if (s.getMemberOf() == deadCorp) {
-                            s.setMemberOf(currentLargest);
+                        for (Tile s : spentTileStorage) {
+                            if (s.getMemberOf() == deadCorp) {
+                                s.setMemberOf(currentLargest);
+                            }
                         }
                     }
                 }
