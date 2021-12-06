@@ -408,7 +408,12 @@ public class GameBoardController {
             updatePlayerTiles();
 
             spentTileStorage.add(spentTile);
-            incorporationCheck(spentTile);
+            boolean incorpNotNeeded = mergeCheck(spentTile);
+
+            if (incorpNotNeeded == false) {
+                incorporationCheck(spentTile);
+            }
+
             updateBoard();
 
             infoLabel.setText("Played tile " + spentTile.id);
@@ -421,147 +426,98 @@ public class GameBoardController {
         }
     }
 
-//    /**
-//     * Checks a played tile for possible merges and updates owner field. Merges occur when a tile is placed in a way
-//     * that fills a gap in between two or more corporations, with all tiles from smaller corporation(s) becoming
-//     * absorbed into the largest one.
-//     *
-//     * Rules on multiple mergers found here: https://www.ultraboardgames.com/acquire/game-rules.php
-//     *
-//     * @param t the tile being checked for merges
-//     * @return true if a merge was performed, false otherwise, since incorporationCheck shouldn't happen if a merge took place
-//     */
-//    public boolean mergeCheck(Tile t) {
-//        Tile left = new Tile();
-//        Tile right = new Tile();
-//        Tile up = new Tile();
-//        Tile down = new Tile();
-//
-//        boolean tileCanMerge = false;
-//        boolean mergePerformed = false;
-//
-//        Corporation currentLargest = new Corporation(8, "dummy", false, false, 0);
-//        Corporation checkLargest = new Corporation();
-//        Tile winningTile = new Tile();
-//
-//        // Null checks
-//        if (notNull(t.getLeft())) {left = t.getLeft();}
-//        if (notNull(t.getRight())) {right = t.getRight();}
-//        if (notNull(t.getUp())) {up = t.getUp();}
-//        if (notNull(t.getDown())) {down = t.getDown();}
-//
-//        ArrayList<Tile> mergePartners = new ArrayList<>();
-//
-//        if (left.getMemberOf() != null || right.getMemberOf() != null || up.getMemberOf() != null || down.getMemberOf() != null) {
-//            tileCanMerge = true;
-//            if (left.getMemberOf() != null) {
-//                mergePartners.add(up);
-//            }
-//            if (right.getMemberOf() != null) {
-//                mergePartners.add(up);
-//            }
-//            if (up.getMemberOf() != null) {
-//                mergePartners.add(up);
-//            }
-//            if (down.getMemberOf() != null) {
-//                mergePartners.add(down);
-//            }
-//        }
-//
-//        if (tileCanMerge) {
-//            // Determine largest partner
-//            for (int i = 0; i < mergePartners.size(); i++) {
-//                checkLargest = mergePartners.get(i).getMemberOf();
-//                if (checkLargest.getSize() > currentLargest.getSize()) {currentLargest = checkLargest;}
-//                winningTile = mergePartners.remove(i);
-//            }
-//
-//            // Merge played tile into nearby corporation
-//            int corporationSize = currentLargest.getSize();
-//            t.setMemberOf(currentLargest);
-//            currentLargest.setSize(corporationSize++);
-//            mergePerformed = true;
-//
-//            // Clean up any corporations that need to be absorbed
-//            if (mergePartners.size() < 0) {
-//                branches = new ArrayList<>();
-//                branchesChecked = new ArrayList<>();
-//                branchTracker = 0;
-//            }
-//        }
-//
-//        if (mergePerformed) {
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
-//    }
-//
-//    /**
-//     * Iterates through a corporation by checking adjacent tiles for membership in a corporation,
-//     * then replaces membership with a new corporation.
-//     *
-//     * @param c the corporation taking over the given tiles
-//     * @param t the tile to start chaining from
-//     */
-//    public void chainReactionMerge(Corporation c, Tile t, ArrayList<boolean> bChecked, ArrayList<Tile> b) {
-//        Tile left = new Tile();
-//        Tile right = new Tile();
-//        Tile up = new Tile();
-//        Tile down = new Tile();
-//
-//        Corporation defunctCorp = t.getMemberOf();
-//
-//        // Null checks
-//        if (notNull(t.getLeft())) {
-//            left = t.getLeft();
-//            if (left.getMemberOf() == defunctCorp) {
-//                branches.add(left);
-//                branchesChecked().add(false);
-//                branchTracker++;
-//            }
-//        }
-//        if (notNull(t.getRight())) {
-//            right = t.getRight();
-//            if (right.getMemberOf() == defunctCorp) {
-//                branches.add(right);
-//                branchesChecked().add(false);
-//                branchTracker++;
-//            }
-//        }
-//        if (notNull(t.getUp())) {
-//            up = t.getUp();
-//            if (up.getMemberOf() == defunctCorp) {
-//                branches.add(up);
-//                branchesChecked().add(false);
-//                branchTracker++;
-//            }
-//        }
-//        if (notNull(t.getDown())) {
-//            down = t.getDown();
-//            if (down.getMemberOf() == defunctCorp) {
-//                branches.add(down);
-//                branchesChecked().add(false);
-//                branchTracker++;
-//            }
-//        }
-//
-//        if (left.getMemberOf() != null || right.getMemberOf() != null || up.getMemberOf() != null || down.getMemberOf() != null) {
-//            int mostRecentIndex = branches.size() - 1;
-//            branchesChecked.add(mostRecentIndex, true);
-//            chainReactionMerge(c, branches.get(mostRecentIndex), branchesChecked, branches);
-//        } else {
-//            for (int j = 0; j < branches.size(); j++) {
-//                if (branchesChecked.remove(0) == true) {
-//                    branches.remove(0);
-//                }
-//                else {
-//                    chainReactionMerge(c, branches.remove(0), branchesChecked, branches);
-//                }
-//            }
-//        }
-//    }
+    /**
+     * Checks a played tile for possible merges and updates owner field. Merges occur when a tile is placed in a way
+     * that fills a gap in between two or more corporations, with all tiles from smaller corporation(s) becoming
+     * absorbed into the largest one.
+     *
+     * Rules on multiple mergers found here: https://www.ultraboardgames.com/acquire/game-rules.php
+     *
+     * @param t the tile being checked for merges
+     * @return true if a merge was performed, false otherwise, since incorporationCheck shouldn't happen if a merge took place
+     */
+    public boolean mergeCheck(Tile t) {
+        Tile left = new Tile();
+        Tile right = new Tile();
+        Tile up = new Tile();
+        Tile down = new Tile();
+
+        boolean tileCanMerge = false;
+        boolean mergePerformed = false;
+
+        Corporation currentLargest = new Corporation(8, "dummy", false, false, 0);
+        Corporation checkLargest = new Corporation();
+        int checkLargestSize = 0;
+        int currentLargestSize = 0;
+
+        // Null checks
+        if (notNull(t.getLeft())) {left = t.getLeft();}
+        if (notNull(t.getRight())) {right = t.getRight();}
+        if (notNull(t.getUp())) {up = t.getUp();}
+        if (notNull(t.getDown())) {down = t.getDown();}
+
+        ArrayList<Tile> mergePartners = new ArrayList<>();
+
+        if (left.getMemberOf() != null || right.getMemberOf() != null || up.getMemberOf() != null || down.getMemberOf() != null) {
+            tileCanMerge = true;
+            if (left.getMemberOf() != null) {
+                mergePartners.add(up);
+            }
+            if (right.getMemberOf() != null) {
+                mergePartners.add(up);
+            }
+            if (up.getMemberOf() != null) {
+                mergePartners.add(up);
+            }
+            if (down.getMemberOf() != null) {
+                mergePartners.add(down);
+            }
+        }
+
+        if (tileCanMerge) {
+            // Determine largest partner
+            for (int i = 0; i < mergePartners.size(); i++) {
+                checkLargest = mergePartners.get(i).getMemberOf();
+                checkLargestSize = checkLargest.getSize();
+                currentLargestSize = currentLargest.getSize();
+
+                if (checkLargestSize > currentLargestSize) {currentLargest = checkLargest;}
+
+                Tile winningTile = mergePartners.remove(i);
+            }
+
+            // Merge played tile into nearby corporation
+            int corporationSize = currentLargest.getSize();
+            currentLargest.setSize(corporationSize++);
+
+            t.setMemberOf(currentLargest);
+            mergePerformed = true;
+
+            // Clean up any corporations that need to be absorbed
+            if (mergePartners.size() < 0) {
+                for (int j = 0; j < mergePartners.size(); j++) {
+                    Corporation deadCorp = mergePartners.get(j).getMemberOf();
+                    int absorbedSize = deadCorp.getSize();
+                    deadCorp.absorbed();
+
+                    currentLargest.gainTiles(absorbedSize);
+
+                    for (Tile s : spentTileStorage) {
+                        if (s.getMemberOf() == deadCorp) {
+                            s.setMemberOf(currentLargest);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (mergePerformed) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     /**
      * Checks a played tile for possible incorporation (a tile is placed in a way that it is not absorbed into a corporation
