@@ -1,17 +1,22 @@
 package CS2263_Project1;
 
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
-
-import java.util.ArrayList;
+import org.checkerframework.checker.units.qual.C;
 
 /**
  * Game Board Controller Class contains all methods used as part of the game UI stage
@@ -671,17 +676,59 @@ public class GameBoardController {
         }
     }
 
+    /**
+     * Brings up a window that lets the player buy stock
+     */
     public void buyStockWindow() {
-        Dialog dialog = new Dialog();
+        AtomicInteger buyStockTracker = new AtomicInteger(3);
+        Stage stage = new Stage();
+        stage.setWidth(500); stage.setHeight(250);
+        stage.setResizable(false);
 
-        dialog.setTitle(" NY Stock Exchange");
-        dialog.setHeaderText("So you want to buy some stocks, do ya?");
-        dialog.setContentText("That's a shame, the stock exchange is down.");
+        Label label = new Label("Please click a stock you'd like to buy. (Limit: 3)");
+        label.setFont(new Font("Cambria",15));
+        VBox vBox = new VBox();
+        AnchorPane anchorPane = new AnchorPane(vBox);
+        vBox.getChildren().add(label);
+        Scene scene = new Scene(anchorPane, 250,250);
 
-        dialog.show();
-        dialog.setHeight(200);
+        for(Corporation c : gameBoard.getCorporationTray()){
+            Button b = new Button();
+            b.setUserData(c);
+            b.setText(c.getName() + "-   Price: " + c.getPrice());
 
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            if (c.getInUse()){
+                vBox.getChildren().add(b);
+            }
+
+            b.setOnAction(event -> {
+                Corporation C = (Corporation) b.getUserData();
+
+                if (playerTurn == 1 && buyStockTracker.get() > 0){
+                    Stock stock = new Stock(C.getPrice() ,C.getName());
+                    player1.getPortfolio().add(stock);
+                    player1.spendMoney(stock.getValue());
+                    updateMoney();
+                    updateStockPane();
+                    buyStockTracker.getAndDecrement();
+
+                }
+
+                else if (playerTurn == 2 && buyStockTracker.get() > 0){
+                    Stock stock = new Stock(C.getPrice(), C.getName());
+                    player2.getPortfolio().add(stock);
+                    player2.spendMoney(stock.getValue());
+                    updateMoney();
+                    updateStockPane();
+                    buyStockTracker.getAndDecrement();
+
+                }
+            });
+
+        }
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**

@@ -56,11 +56,15 @@ public class Player {
      * @param money integer to be subtracted from wallet
      */
     public void spendMoney(int money) {
-        if (money > 0){
-            this.wallet = this.wallet - money;
+        if (this.wallet - money < 0){
+            //Do nothing
         }
-        else{
-            this.wallet = this.wallet - 0;
+        else {
+            if (money > 0) {
+                this.wallet = this.wallet - money;
+            } else {
+                this.wallet = this.wallet - 0;
+            }
         }
     }
 
