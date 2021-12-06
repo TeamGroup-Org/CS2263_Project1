@@ -2,14 +2,11 @@ package CS2263_Project1;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.checkerframework.checker.units.qual.A;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
-
-import lombok.extern.log4j.Log4j2;
 
 /**
  * Board class creates an arraylist representing the acquire board and provides methods for manipulating it.
@@ -215,26 +212,6 @@ public class Board {
         }
         return hand;
     }
-
-//    /**
-//     * Draws a single random tile into player hand and returns whole player hand
-//     *
-//     * @return whole player hand
-//     */
-//    public ArrayList<Tile> drawTileToHand() {
-//        ArrayList<Tile> hand = new ArrayList<>();
-//
-//        Random rand = new Random();
-//        int handRand = rand.nextInt(tileArray.size());
-//
-//        Tile handTile = tileArray.get(handRand);
-//        hand.add(handTile);
-//
-//        tileArray.remove(handTile);
-//
-//        log.info(handTile + " added to hand");
-//        return hand;
-//    }
 
     public void shuffleTray() {
         Collections.shuffle(tileArray);

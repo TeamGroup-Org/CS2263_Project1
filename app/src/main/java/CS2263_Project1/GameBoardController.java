@@ -1,10 +1,6 @@
 package CS2263_Project1;
 
-import java.util.ArrayList;
-
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
@@ -14,7 +10,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.extern.log4j.Log4j2;
-import org.checkerframework.checker.units.qual.C;
+
+import java.util.ArrayList;
 
 /**
  * Game Board Controller Class contains all methods used as part of the game UI stage

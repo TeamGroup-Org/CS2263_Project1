@@ -9,8 +9,6 @@ import lombok.Setter;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author David Hellwig
@@ -30,15 +28,12 @@ public class DataManager {
     @Setter
     private Board boardData;
 
-//    @Getter
-//    @Setter
-//    private TileTray trayData;
 
     /**
      *
      * @param p1 Player
      * @param b Board
-     * @param t TileTray
+     //* @param t TileTray
      *          Writes out broad range of data to three files
      */
     public void Write(Player p1, Player p2, Board b){
@@ -76,20 +71,9 @@ public class DataManager {
             e.printStackTrace();
         }
 
-//        try {
-//            truncate(new File("tray.json"));
-//            FileWriter writerT = new FileWriter("tray.json");
-//            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//            gson.toJson(t,writerT);
-//            writerT.flush();
-//            writerT.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
 
     }
+
 
     /**
      * @throws FileNotFoundException file not found
@@ -100,7 +84,6 @@ public class DataManager {
 
         Type BoardInfo = new TypeToken<Board>() {}.getType();
 
-//        Type trayInfo = new TypeToken<TileTray>() {}.getType();
 
         JsonReader playerReader = new JsonReader(new FileReader("player1.json"));
 
@@ -108,7 +91,6 @@ public class DataManager {
 
         JsonReader boardReader = new JsonReader(new FileReader("board.json"));
 
-//        JsonReader trayReader = new JsonReader(new FileReader("tray.json"));
 
         Gson gson = new Gson();
         playerData = gson.fromJson(playerReader, playerInfo);
@@ -118,10 +100,6 @@ public class DataManager {
 
         Gson gsonTwo = new Gson();
         boardData = gson.fromJson(boardReader, BoardInfo);
-
-//        Gson gsonThree = new Gson();
-//        trayData = gson.fromJson(trayReader, trayInfo);
-
 
 
     }
