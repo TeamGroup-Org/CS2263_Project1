@@ -7,7 +7,7 @@ import lombok.Setter;
  * @author David Hellwig
  * @author Noah Owens
  *
- * @version 1.0.0
+ * @version v1.1.0
  */
 
 public class Tile {

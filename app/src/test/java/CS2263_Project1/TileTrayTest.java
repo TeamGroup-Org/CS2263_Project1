@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author David Hellwig
  * @author Noah Owens
+ *
+ * @version v1.1.0
  */
 
 public class TileTrayTest {

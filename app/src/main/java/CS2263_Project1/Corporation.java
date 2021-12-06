@@ -6,7 +6,7 @@ package CS2263_Project1;
  * @author Noah Owens
  * @author Coby Garner
  *
- * @version 1.0.0
+ * @version v1.1.0
  */
 
 public class Corporation {

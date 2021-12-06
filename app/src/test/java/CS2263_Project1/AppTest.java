@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author David Hellwig
+ *
+ * @version v1.1.0
  */
 
 class AppTest {
