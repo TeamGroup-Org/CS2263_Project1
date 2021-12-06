@@ -1,6 +1,8 @@
 package CS2263_Project1;
 /**
  * @author David Hellwig
+ *
+ * @version v1.1.0
  */
 
 import org.junit.jupiter.api.AfterEach;
@@ -32,9 +34,9 @@ public class BankerTest {
 
         ArrayList<Tile> hand = new ArrayList<>();
 
-        Tile t1 = new Tile("A1", false);
+        Tile t1 = new Tile("A1", false, null, null, null, null, null, null);
 
-        Tile t2 = new Tile("A2", false);
+        Tile t2 = new Tile("A2", false, null, null, null, null, null, null);
 
         hand.add(t1);
 
@@ -63,9 +65,9 @@ public class BankerTest {
 
         ArrayList<Tile> hand = new ArrayList<>();
 
-        Tile t1 = new Tile("A1", false);
+        Tile t1 = new Tile("A1", false, null, null, null, null, null, null);
 
-        Tile t2 = new Tile("A2", false);
+        Tile t2 = new Tile("A2", false, null, null, null, null, null, null);
 
         hand.add(t1);
 
@@ -99,7 +101,7 @@ public class BankerTest {
     @Test
     public void testCalculateReturn(){
         banker.calculateReturn(corporation, player);
-        assertEquals(5000, player.getPlayerInfo());
+        assertEquals(5000, player.getWallet());
     }
 
     /**
@@ -110,6 +112,18 @@ public class BankerTest {
         assertEquals(player2, banker.getWinner(player, player2));
         player.takeMoney(5000);
         assertEquals(player, banker.getWinner(player, player2));
+    }
+
+    /**
+     * test to make sure a placeholder player is the winner if no human player won
+     */
+    @Test
+    public void testNoWinner(){
+        Player testPlayer = player2;
+        Player p  = banker.getWinner(testPlayer,player2);
+
+        assertEquals(0, p.getWallet());
+
     }
 
 }

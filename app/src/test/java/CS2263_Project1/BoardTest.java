@@ -3,6 +3,9 @@ package CS2263_Project1;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+
+import java.util.ArrayList;
+
 import static org.mockito.Mockito.*;
 
 
@@ -11,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author David Hellwig
+ *
+ * @version v1.1.0
  */
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -28,7 +33,7 @@ public class BoardTest {
     @Test
     public void testPlaceTile(){
 
-        Tile t = new Tile("A1", false);
+        Tile t = new Tile("A1", false, null, null, null, null, null, null);
         board.placeTile(t);
         assertTrue(t.isSpent);
     }
@@ -58,6 +63,27 @@ public class BoardTest {
     public void testGetGameCanEnd(){
         assertFalse(board.getGameCanEnd());
     }
+
+    /**
+     * test to make sure generatePlayerHand method does not make null ArrayLists
+     */
+    @Test
+    public void testGeneratePlayerHand(){
+        ArrayList<Tile> testArray = board.generatePlayerHand();
+        assertNotNull(testArray);
+
+    }
+
+//    /**
+//     * tests to make sure drawTileToHand doesn't return null Arraylists
+//     */
+//    @Test
+//    public void testDrawTileToHand(){
+//        ArrayList<Tile> testArray = board.drawTileToHand();
+//        Tile tile = testArray.remove(0);
+//        assertNotNull(tile);
+//
+//    }
 
 
 }

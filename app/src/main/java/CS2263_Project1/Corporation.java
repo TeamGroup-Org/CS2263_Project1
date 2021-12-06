@@ -1,10 +1,12 @@
 package CS2263_Project1;
 
 /**
+ * Corporation Class creates an object which represents the hotel chains. Stores and updates relevant data.
+ *
  * @author Noah Owens
  * @author Coby Garner
  *
- * @version 1.0.0
+ * @version v1.1.0
  */
 
 public class Corporation {
@@ -31,7 +33,13 @@ public class Corporation {
         this.size = size;
     }
 
+    /**
+     * Empty constructor
+     */
+    public Corporation() {}
+
     //Getters and Setters
+    public int getId() {return id;}
     public String getName() {return name;}
     public boolean getInUse() {return inUse;}
     public boolean getIsSafe() {return isSafe;}
@@ -85,9 +93,13 @@ public class Corporation {
     /**
      * Sets corporation's values to default values for a corporation which has just been played to the board.
      */
-    public void found() {
-        size = 2;
+    public void found(Player p, int startingSize, int value, String name) {
+        Stock founderStock = new Stock(value, name);
+
+        size = startingSize;
         inUse = true;
+
+        p.getPortfolio().add(founderStock);
     }
 
     /**
@@ -133,7 +145,6 @@ public class Corporation {
         }
 
         return price;
-
     }
 
     /**

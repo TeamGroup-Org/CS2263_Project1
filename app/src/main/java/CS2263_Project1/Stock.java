@@ -3,17 +3,20 @@ package CS2263_Project1;
 /**
  * @author David Hellwig
  *
- * @version 1.0.0
+ * @version v1.1.0
  */
 
 public class Stock {
+
+    private int value;
+    private String company;
+
     public Stock(int value, String companyName){
         this.value = value;
         this.company = companyName;
     }
-    private int value;
 
-    private String company;
+    public Stock() {}
 
     /**
      *
@@ -35,7 +38,7 @@ public class Stock {
      *
      * @param i sets price of stock
      */
-    public void setPrice(int i){
+    public void setValue(int i){
         value = i;
     }
 }
