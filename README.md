@@ -28,9 +28,9 @@ From the home screen you can begin a new game, load one from a locally stored fi
 
 Beginning a new game brings you to the game view of the application, where there is a gameboard, player turn indicator, player hand and stock counts, as well as money totals and the ability to perform various in game actions.
 
-## Version v1.0.0
+## Version v1.1.0
 
-*Code Coverage: 64%*
+*Code Coverage: 29%*
 
 ### Overall Coverage
 ![Overall Coverage](images/appCoverage.png "Overall Code Coverage: 63%")

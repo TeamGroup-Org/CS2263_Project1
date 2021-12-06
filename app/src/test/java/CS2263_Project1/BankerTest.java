@@ -1,6 +1,8 @@
 package CS2263_Project1;
 /**
  * @author David Hellwig
+ *
+ * @version v1.1.0
  */
 
 import org.junit.jupiter.api.AfterEach;

@@ -13,7 +13,7 @@ import java.util.Random;
  *
  * @author Noah Owens
  *
- * @version 1.0.0
+ * @version v1.1.0
  */
 
 @Log4j2

@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
  * Menu Controller Class contains all methods used as part of the Main Menu UI stage
  *
  * @author Coby Garner
+ *
+ * @version v1.1.0
  */
 
 @Log4j2

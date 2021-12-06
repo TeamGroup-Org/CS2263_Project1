@@ -13,6 +13,8 @@ import java.lang.reflect.Type;
 /**
  * @author David Hellwig
  * @author Ekow Barlow
+ *
+ * @version v1.1.0
  */
 public class DataManager {
 

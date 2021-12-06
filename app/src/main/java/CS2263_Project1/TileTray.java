@@ -8,7 +8,7 @@ import java.util.Collections;
  * @author Noah Owens
  * @author Ekow Barlow
  *
- * @version 1.0.0
+ * @version v1.1.0
  */
 public class TileTray {
     private ArrayList<Tile> tray;
