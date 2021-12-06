@@ -788,7 +788,7 @@ public class GameBoardController {
     }
 
     public void saveAndQuit() {
-        dataManager.Write(player1, player2, gameBoard);
+        //dataManager.Write(player1, player2, gameBoard);
         App.stage1.close();
     }
 
